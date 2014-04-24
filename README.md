@@ -1,4 +1,4 @@
 pharao
 ======
 
-Possible Pyramid version of phpmyadmin.
+Possible Pyramid/Django version of phpmyadmin.
