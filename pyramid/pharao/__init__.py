@@ -1,5 +1,7 @@
+#-*- coding: utf-8 -*-
+
 from pyramid.config import Configurator
-from pyramid.authentication import AuthTktAuthenticationPolicy
+'''from pyramid.authentication import AuthTktAuthenticationPolicy
 from pyramid.authorization import ACLAuthorizationPolicy
 from pyramid.decorator import reify
 from pyramid.request import Request
@@ -13,10 +15,6 @@ import pyramid_redis_session
 
 from sqlalchemy import engine_from_config, Table
 
-from .models import (
-    DBSession,
-    Base,
-    )
 from .models.authentication import Usuario
 
 from singleton import (MOBILE, USERFILES, MAC, MSSQL_USER,
@@ -101,5 +99,28 @@ def main(global_config, **settings):
     config.add_static_view('static', 'familias:static', cache_max_age=3600)
     config.add_static_view('userfiles', 'familias:userfiles', cache_max_age=3600)
     config.add_static_view('deform', 'deform:static', cache_max_age=3600)
+    config.scan()
+    return config.make_wsgi_app()'''
+
+
+import sqlalchemy
+from .models import *
+from pharao import models
+
+
+def main(global_config, **settings):
+    """ This function returns a Pyramid WSGI application.
+    """
+    
+    MySession.configure(bind=mysql_engine)
+    MyBase.metadata.bind = mysql_engine
+    #Base.metadata.create_all(engine)
+
+    #e("show tables").fetchall()
+
+    config = Configurator(settings=settings)
+    config.include('pyramid_chameleon')
+    config.add_static_view('static', 'static', cache_max_age=3600)
+    config.add_route('home', '/')
     config.scan()
     return config.make_wsgi_app()

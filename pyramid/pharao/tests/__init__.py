@@ -1,6 +1,6 @@
 #-*- coding:utf-8 -*-
 
-from pyramid.config import Configurator
+'''from pyramid.config import Configurator
 from sqlalchemy import create_engine
 
 from sqlalchemy import engine_from_config
@@ -101,5 +101,5 @@ class AuthDummyRequest(testing.DummyRequest):
         testing.DummyRequest.__init__(self, *args, **kw)
     def set_userid(self, id):
         self.authenticated_userid = id
-        self.unauthenticated_userid = id
+        self.unauthenticated_userid = id'''
 
