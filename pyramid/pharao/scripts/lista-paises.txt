@@ -1,0 +1,244 @@
+AF, AFG, 004, Afeganistão
+ZA, ZAF, 710, África do Sul
+AX, ALA, 248, Åland, Ilhas
+AL, ALB, 008, Albânia
+DE, DEU, 276, Alemanha
+AD, AND, 020, Andorra
+AO, AGO, 024, Angola
+AI, AIA, 660, Anguilla
+AQ, ATA, 010, Antárctida
+AG, ATG, 028, Antigua e Barbuda
+AN, ANT, 530, Antilhas Holandesas
+SA, SAU, 682, Arábia Saudita
+DZ, DZA, 012, Argélia
+AR, ARG, 032, Argentina
+AM, ARM, 051, Arménia
+AW, ABW, 533, Aruba
+AU, AUS, 036, Austrália
+AT, AUT, 040, Áustria
+AZ, AZE, 031, Azerbeijão
+BS, BHS, 044, Bahamas
+BH, BHR, 048, Bahrain
+BD, BGD, 050, Bangladesh
+BB, BRB, 052, Barbados
+BE, BEL, 056, Bélgica
+BZ, BLZ, 084, Belize
+BJ, BEN, 204, Benin
+BM, BMU, 060, Bermuda
+BY, BLR, 112, Bielo-Rússia
+BO, BOL, 068, Bolívia
+BA, BIH, 070, Bósnia-Herzegovina
+BW, BWA, 072, Botswana
+BV, BVT, 074, Bouvet, Ilha
+BR, BRA, 076, Brasil
+BN, BRN, 096, Brunei
+BG, BGR, 100, Bulgária
+BF, BFA, 854, Burkina Faso
+BI, BDI, 108, Burundi
+BT, BTN, 064, Butão
+CV, CPV, 132, Cabo Verde
+KH, KHM, 116, Cambodja
+CM, CMR, 120, Camarões
+CA, CAN, 124, Canadá
+KY, CYM, 136, Cayman, Ilhas
+KZ, KAZ, 398, Cazaquistão
+CF, CAF, 140, Centro-africana, República
+TD, TCD, 148, Chade
+CZ, CZE, 203, Checa, República
+CL, CHL, 152, Chile
+CN, CHN, 156, China
+CY, CYP, 196, Chipre
+CX, CXR, 162, Christmas, Ilha
+CC, CCK, 166, Cocos, Ilhas
+CO, COL, 170, Colômbia
+KM, COM, 174, Comores
+CG, COG, 178, Congo, República do
+CD, COD, 180, Congo, República Democrática do (antigo Zaire)
+CK, COK, 184, Cook, Ilhas
+KR, KOR, 410, Coreia do Sul
+KP, PRK, 408, Coreia, República Democrática da (Coreia do Norte)
+CI, CIV, 384, Costa do Marfim
+CR, CRI, 188, Costa Rica
+HR, HRV, 191, Croácia
+CU, CUB, 192, Cuba
+DK, DNK, 208, Dinamarca
+DJ, DJI, 262, Djibouti
+DM, DMA, 212, Dominica
+DO, DOM, 214, Dominicana, República
+EG, EGY, 818, Egipto
+SV, SLV, 222, El Salvador
+AE, ARE, 784, Emiratos Árabes Unidos
+EC, ECU, 218, Equador
+ER, ERI, 232, Eritreia
+SK, SVK, 703, Eslováquia
+SI, SVN, 705, Eslovénia
+ES, ESP, 724, Espanha
+US, USA, 840, Estados Unidos da América
+EE, EST, 233, Estónia
+ET, ETH, 231, Etiópia
+FO, FRO, 234, Faroe, Ilhas
+FJ, FJI, 242, Fiji
+PH, PHL, 608, Filipinas
+FI, FIN, 246, Finlândia
+FR, FRA, 250, França
+GA, GAB, 266, Gabão
+GM, GMB, 270, Gâmbia
+GH, GHA, 288, Gana
+GE, GEO, 268, Geórgia
+GS, SGS, 239, Geórgia do Sul e Sandwich do Sul, Ilhas
+GI, GIB, 292, Gibraltar
+GR, GRC, 300, Grécia
+GD, GRD, 308, Grenada
+GL, GRL, 304, Gronelândia
+GP, GLP, 312, Guadeloupe
+GU, GUM, 316, Guam
+GT, GTM, 320, Guatemala
+GG, GGY, 831, Guernsey
+GY, GUY, 328, Guiana
+GF, GUF, 254, Guiana Francesa
+GW, GNB, 624, Guiné-Bissau
+GN, GIN, 324, Guiné-Conacri
+GQ, GNQ, 226, Guiné Equatorial
+HT, HTI, 332, Haiti
+HM, HMD, 334, Heard e Ilhas McDonald, Ilha
+HN, HND, 340, Honduras
+HK, HKG, 344, Hong Kong
+HU, HUN, 348, Hungria
+YE, YEM, 887, Iémen
+IN, IND, 356, Índia
+ID, IDN, 360, Indonésia
+IQ, IRQ, 368, Iraque
+IR, IRN, 364, Irão
+IE, IRL, 372, Irlanda
+IS, ISL, 352, Islândia
+IL, ISR, 376, Israel
+IT, ITA, 380, Itália
+JM, JAM, 388, Jamaica
+JP, JPN, 392, Japão
+JE, JEY, 832, Jersey
+JO, JOR, 400, Jordânia
+KI, KIR, 296, Kiribati
+KW, KWT, 414, Kuwait
+LA, LAO, 418, Laos
+LS, LSO, 426, Lesoto
+LV, LVA, 428, Letónia
+LB, LBN, 422, Líbano
+LR, LBR, 430, Libéria
+LY, LBY, 434, Líbia
+LI, LIE, 438, Liechtenstein
+LT, LTU, 440, Lituânia
+LU, LUX, 442, Luxemburgo
+MO, MAC, 446, Macau
+MK, MKD, 807, Macedónia, República da
+MG, MDG, 450, Madagáscar
+MY, MYS, 458, Malásia
+MW, MWI, 454, Malawi
+MV, MDV, 462, Maldivas
+ML, MLI, 466, Mali
+MT, MLT, 470, Malta
+FK, FLK, 238, Malvinas, Ilhas (Falkland)
+IM, IMN, 833, Man, Ilha de
+MP, MNP, 580, Marianas Setentrionais
+MA, MAR, 504, Marrocos
+MH, MHL, 584, Marshall, Ilhas
+MQ, MTQ, 474, Martinica
+MU, MUS, 480, Maurícia
+MR, MRT, 478, Mauritânia
+YT, MYT, 175, Mayotte
+UM, UMI, 581, Menores Distantes dos Estados Unidos, Ilhas
+MX, MEX, 484, México
+MM, MMR, 104, Myanmar (antiga Birmânia)
+FM, FSM, 583, Micronésia, Estados Federados da
+MZ, MOZ, 508, Moçambique
+MD, MDA, 498, Moldávia
+MC, MCO, 492, Mónaco
+MN, MNG, 496, Mongólia
+ME, MNE, 499, Montenegro
+MS, MSR, 500, Montserrat
+NA, NAM, 516, Namíbia
+NR, NRU, 520, Nauru
+NP, NPL, 524, Nepal
+NI, NIC, 558, Nicarágua
+NE, NER, 562, Níger
+NG, NGA, 566, Nigéria
+NU, NIU, 570, Niue
+NF, NFK, 574, Norfolk, Ilha
+NO, NOR, 578, Noruega
+NC, NCL, 540, Nova Caledónia
+NZ, NZL, 554, Nova Zelândia (Aotearoa)
+OM, OMN, 512, Oman
+NL, NLD, 528, Países Baixos (Holanda)
+PW, PLW, 585, Palau
+PS, PSE, 275, Palestina
+PA, PAN, 591, Panamá
+PG, PNG, 598, Papua-Nova Guiné
+PK, PAK, 586, Paquistão
+PY, PRY, 600, Paraguai
+PE, PER, 604, Peru
+PN, PCN, 612, Pitcairn
+PF, PYF, 258, Polinésia Francesa
+PL, POL, 616, Polónia
+PR, PRI, 630, Porto Rico
+PT, PRT, 620, Portugal
+QA, QAT, 634, Qatar
+KE, KEN, 404, Quénia
+KG, KGZ, 417, Quirguistão
+GB, GBR, 826, Reino Unido da Grã-Bretanha e Irlanda do Norte
+RE, REU, 638, Reunião
+RO, ROU, 642, Roménia
+RW, RWA, 646, Ruanda
+RU, RUS, 643, Rússia
+EH, ESH, 732, Saara Ocidental
+AS, ASM, 016, Samoa Americana
+WS, WSM, 882, Samoa (Samoa Ocidental)
+PM, SPM, 666, Saint Pierre et Miquelon
+SB, SLB, 090, Salomão, Ilhas
+KN, KNA, 659, São Cristóvão e Névis (Saint Kitts e Nevis)
+SM, SMR, 674, San Marino
+ST, STP, 678, São Tomé e Príncipe
+VC, VCT, 670, São Vicente e Granadinas
+SH, SHN, 654, Santa Helena
+LC, LCA, 662, Santa Lúcia
+SN, SEN, 686, Senegal
+SL, SLE, 694, Serra Leoa
+RS, SRB, 688, Sérvia
+SC, SYC, 690, Seychelles
+SG, SGP, 702, Singapura
+SY, SYR, 760, Síria
+SO, SOM, 706, Somália
+LK, LKA, 144, Sri Lanka
+SZ, SWZ, 748, Suazilândia
+SD, SDN, 736, Sudão
+SE, SWE, 752, Suécia
+CH, CHE, 756, Suíça
+SR, SUR, 740, Suriname
+SJ, SJM, 744, Svalbard e Jan Mayen
+TH, THA, 764, Tailândia
+TW, TWN, 158, Taiwan
+TJ, TJK, 762, Tajiquistão
+TZ, TZA, 834, Tanzânia
+TF, ATF, 260, Terras Austrais e Antárticas Francesas (TAAF)
+IO, IOT, 086, Território Britânico do Oceano Índico
+TL, TLS, 626, Timor-Leste
+TG, TGO, 768, Togo
+TK, TKL, 772, Toquelau
+TO, TON, 776, Tonga
+TT, TTO, 780, Trindade e Tobago
+TN, TUN, 788, Tunísia
+TC, TCA, 796, Turks e Caicos
+TM, TKM, 795, Turquemenistão
+TR, TUR, 792, Turquia
+TV, TUV, 798, Tuvalu
+UA, UKR, 804, Ucrânia
+UG, UGA, 800, Uganda
+UY, URY, 858, Uruguai
+UZ, UZB, 860, Usbequistão
+VU, VUT, 548, Vanuatu
+VA, VAT, 336, Vaticano
+VE, VEN, 862, Venezuela
+VN, VNM, 704, Vietname
+VI, VIR, 850, Virgens Americanas, Ilhas
+VG, VGB, 092, Virgens Britânicas, Ilhas
+WF, WLF, 876, Wallis e Futuna
+ZM, ZMB, 894, Zâmbia
+ZW, ZWE, 716, Zimbabwe
