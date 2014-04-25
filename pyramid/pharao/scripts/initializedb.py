@@ -1,6 +1,6 @@
 #-*- coding: utf-8 -*-
 
-import os
+'''import os
 import sys
 import codecs
 import transaction
@@ -12,12 +12,12 @@ from pyramid.paster import (
     setup_logging,
     )
 
-from pharao.models import (DBSession, Base)
+from pharao.models import (PgSession, PgBase)
 
 from pharao.models.authentication import *
 from pharao.models.log import *
 
-def populatePaises(database=DBSession):
+def populatePaises(database=PgSession):
     with codecs.open(os.path.dirname(__file__)+'/lista-paises.txt', 'r', encoding='utf-8') as paises:
         for row in paises:
             data = row.replace('\n', '').split(', ')
@@ -25,7 +25,7 @@ def populatePaises(database=DBSession):
             database.add(pais)
             database.flush()
 
-def populateEstadosBR(database=DBSession):
+def populateEstadosBR(database=PgSession):
     pais = database.query(Pais).filter(Pais.nome==u'Brasil').first()
     with codecs.open( os.path.dirname(__file__)+'/estados-brasil.txt', 'r', encoding='utf-8') as estados:
         for row in estados:
@@ -41,7 +41,7 @@ def usage(argv):
     sys.exit(1)
 
 
-def main(argv=sys.argv, database=DBSession):
+def main(argv=sys.argv, database=PgSession):
     if len(argv) != 2:
         usage(argv)
     config_uri = argv[1]
@@ -65,6 +65,6 @@ def main(argv=sys.argv, database=DBSession):
         statuses = [u'Sim', u'Só ler', u'Não']
         for p in statuses:
             database.add(SabeLer(nome=p))
-        database.flush()
+        database.flush()'''
 
 
