@@ -14,7 +14,7 @@ set -e
 
 export PGHOST=${PGHOST-localhost}
 export PGPORT=${PGPORT-5432}
-export PGDATABASE=${PGDATABASE-familias}
+export PGDATABASE=${PGDATABASE-pharao}
 export PGUSER=${PGUSER-postgres}
 export PGPASSWORD=${PGPASSWORD-asdfgh01}
 
@@ -28,19 +28,19 @@ fi
 chmod go-rwx /mnt/ramfs/pgdata
 
 #DUMPFILE=~/dump-$(date +%y-%m-%d).sql
-#pg_dump --create --host=localhost -U postgres familias --schema-only --file=$DUMPFILE 
+#pg_dump --create --host=localhost -U postgres pharao --schema-only --file=$DUMPFILE 
 
-psql -U postgres --host localhost -c "DROP DATABASE familia_test;";
-psql -U postgres --host localhost -c "DROP TABLESPACE familia_test;";
-psql -U postgres --host localhost -c "CREATE TABLESPACE familia_test OWNER postgres LOCATION '/mnt/ramfs/pgdata'";
-psql -U postgres --host localhost -c "CREATE DATABASE familia_test WITH OWNER = familias TABLESPACE = familia_test;"
-psql -U postgres familia_test --host localhost -c "CREATE EXTENSION hstore;"
+psql -U postgres --host localhost -c "DROP DATABASE pharao_test;";
+psql -U postgres --host localhost -c "DROP TABLESPACE pharao_test;";
+psql -U postgres --host localhost -c "CREATE TABLESPACE pharao_test OWNER postgres LOCATION '/mnt/ramfs/pgdata'";
+psql -U postgres --host localhost -c "CREATE DATABASE pharao_test WITH OWNER = pharao TABLESPACE = pharao_test;"
+psql -U postgres pharao_test --host localhost -c "CREATE EXTENSION hstore;"
 
 #parte comentada para parar com o carregamento do dump, para que o sistema de testes crie as tabelas
-#sed -i 's/CREATE DATABASE familias/CREATE DATABASE familia_test/g' $DUMPFILE
-#sed -i 's/ALTER DATABASE familias/ALTER DATABASE familia_test/g' $DUMPFILE
-#sed -i "s/'en_US.UTF-8';/'en_US.UTF-8' TABLESPACE=familia_test;/g" $DUMPFILE
-#sed -i 's/connect familias/connect familia_test/g' $DUMPFILE
+#sed -i 's/CREATE DATABASE pharao/CREATE DATABASE pharao_test/g' $DUMPFILE
+#sed -i 's/ALTER DATABASE pharao/ALTER DATABASE pharao_test/g' $DUMPFILE
+#sed -i "s/'en_US.UTF-8';/'en_US.UTF-8' TABLESPACE=pharao_test;/g" $DUMPFILE
+#sed -i 's/connect pharao/connect pharao_test/g' $DUMPFILE
 
 #psql --file=$DUMPFILE -U postgres --host localhost
 
