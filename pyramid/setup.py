@@ -5,6 +5,7 @@ import sys
 
 from setuptools import setup, find_packages
 
+__author__ = 'Jayme Tosi Neto'
 
 extra = {}
 if sys.version_info >= (3,):
@@ -33,13 +34,20 @@ setup(name='pharao',
       description='pharao',
       long_description=README + '\n\n' + CHANGES,
       classifiers=[
+        #https://pypi.python.org/pypi?%3Aaction=list_classifiers
         "Programming Language :: Python",
         "Framework :: Pyramid",
+        'Development Status :: 2 - Pre-Alpha',
+
         "Topic :: Internet :: WWW/HTTP",
         "Topic :: Internet :: WWW/HTTP :: WSGI :: Application",
+        'Topic :: Software Development :: Libraries',
+        'Environment :: Web Environment',
+        'Intended Audience :: Developers',
+        'Operating System :: OS Independent',
         ],
-      author='',
-      author_email='',
+      author='Jayme Tosi Neto',
+      author_email='kalkehcoisa@gmail.com',
       url='',
       keywords='web wsgi bfg pylons pyramid postgresql mysql',
       packages=find_packages(),
