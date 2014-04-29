@@ -1,6 +1,5 @@
 #-*- coding: utf-8 -*-
 
-from pyramid.config import Configurator
 '''from pyramid.authentication import AuthTktAuthenticationPolicy
 from pyramid.authorization import ACLAuthorizationPolicy
 from pyramid.decorator import reify
@@ -103,10 +102,11 @@ def main(global_config, **settings):
     return config.make_wsgi_app()'''
 
 
+from pyramid.config import Configurator
+
 import sqlalchemy
 from .models import *
-from pharao import models
-
+from .resources import get_root
 
 def main(global_config, **settings):
     """ This function returns a Pyramid WSGI application.
@@ -120,7 +120,10 @@ def main(global_config, **settings):
 
     config = Configurator(settings=settings)
     config.include('pyramid_chameleon')
+    config.set_root_factory(get_root)
+
     config.add_static_view('static', 'static', cache_max_age=3600)
-    config.add_route('home', '/')
+    #config.add_route('home', '/')
+    #config.add_route('left_menu', '/')
     config.scan()
     return config.make_wsgi_app()

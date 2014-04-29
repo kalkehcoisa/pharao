@@ -1,6 +1,5 @@
-@import url(//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700);
 body {
-  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 300;
   color: #ffffff;
   background: #bc2131;
@@ -11,5 +10,11 @@ h2,
 h3,
 h4,
 h5,
-h6 { font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: 300; }
+h6 { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: 300; }
 p { font-weight: 300; }
+
+iframe#body
+{
+	min-height: 600px;
+	min-width: 600px;
+};
