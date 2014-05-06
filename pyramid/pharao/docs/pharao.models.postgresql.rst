@@ -1,10 +1,10 @@
-pharao.models.postgresql package
+pharao.backends.postgresql package
 ================================
 
 Module contents
 ---------------
 
-.. automodule:: pharao.models.postgresql
+.. automodule:: pharao.backends.postgresql
     :members:
     :undoc-members:
     :show-inheritance:

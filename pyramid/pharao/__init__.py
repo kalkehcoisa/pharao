@@ -14,12 +14,12 @@ import pyramid_redis_session
 
 from sqlalchemy import engine_from_config, Table
 
-from .models.authentication import Usuario
+from .backends.authentication import Usuario
 
 from singleton import (MOBILE, USERFILES, MAC, MSSQL_USER,
         MSSQL_HOST, MSSQL_PASSWORD)
 
-from .models.authentication import group_finder
+from .backends.authentication import group_finder
 
 from .resources import get_root
 
@@ -105,7 +105,7 @@ def main(global_config, **settings):
 from pyramid.config import Configurator
 
 import sqlalchemy
-from .models import *
+from .backends import *
 from .resources import get_root
 
 def main(global_config, **settings):

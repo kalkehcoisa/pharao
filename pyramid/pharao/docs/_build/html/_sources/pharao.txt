@@ -6,7 +6,7 @@ Subpackages
 
 .. toctree::
 
-    pharao.models
+    pharao.backends
     pharao.scripts
     pharao.tests
     pharao.views

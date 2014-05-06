@@ -6,7 +6,7 @@ from sqlalchemy import create_engine
 from sqlalchemy import engine_from_config
 from pyramid.paster import get_appsettings
 
-from ..models import (
+from ..backends import (
     DBSession,
     Base
     )

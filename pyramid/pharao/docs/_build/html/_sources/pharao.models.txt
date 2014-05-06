@@ -1,4 +1,4 @@
-pharao.models package
+pharao.backends package
 =====================
 
 Subpackages
@@ -6,13 +6,13 @@ Subpackages
 
 .. toctree::
 
-    pharao.models.mysql
-    pharao.models.postgresql
+    pharao.backends.mysql
+    pharao.backends.postgresql
 
 Module contents
 ---------------
 
-.. automodule:: pharao.models
+.. automodule:: pharao.backends
     :members:
     :undoc-members:
     :show-inheritance:

@@ -1,10 +1,10 @@
-pharao.models.mysql package
+pharao.backends.mysql package
 ===========================
 
 Module contents
 ---------------
 
-.. automodule:: pharao.models.mysql
+.. automodule:: pharao.backends.mysql
     :members:
     :undoc-members:
     :show-inheritance:

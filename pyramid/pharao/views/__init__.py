@@ -1,9 +1,11 @@
 #-*- coding: utf-8 -*-
 
 from pyramid.view import view_config
-from ..models import (MySession, MyBase, mysql_engine)
-from ..models import (PgSession, PgBase, pg_engine)
-from pharao import models
+from ..backends import (MySession, MyBase, mysql_engine)
+from ..backends import (PgSession, PgBase, pg_engine)
+from ..backends.postgresql import SqlImplementationInfo
+from pharao import backends
+
 
 
 @view_config(context="..resources.Resource",
@@ -14,6 +16,11 @@ def home(request):
 
     connection = pg_engine.connect()
     pgdbs = [p[0] for p in connection.execute("SELECT * FROM pg_database WHERE datistemplate = False;").fetchall()]
+
+    print('\n\n')
+    for p in PgSession.query(SqlImplementationInfo).all():
+        print(p.character_value)
+    print('\n\n')
 
     #print( connection.execute("select column_name from INFORMATION_SCHEMA.COLUMNS where table_name = 'pg_database';").fetchall() )
     return {'project': 'Pharao', 'mysqldbs': mysqldbs, 'pgdbs': pgdbs}

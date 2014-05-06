@@ -12,10 +12,10 @@ from pyramid.paster import (
     setup_logging,
     )
 
-from pharao.models import (PgSession, PgBase)
+from pharao.backends import (PgSession, PgBase)
 
-from pharao.models.authentication import *
-from pharao.models.log import *
+from pharao.backends.authentication import *
+from pharao.backends.log import *
 
 def populatePaises(database=PgSession):
     with codecs.open(os.path.dirname(__file__)+'/lista-paises.txt', 'r', encoding='utf-8') as paises:
