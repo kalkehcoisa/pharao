@@ -22,6 +22,15 @@ from .types import BooleanString
 DBSession = scoped_session( sessionmaker(extension=ZopeTransactionExtension()) )
 Base = declarative_base()
 
+#TODO
+#review the models and column types of all tables.
+'''
+#saves psql output to file
+\o v8_4.txt
+\d *
+\q
+'''
+
 ######## Schema - information_schema ########
 class SqlFeatures(Base):
     __tablename__= "sql_features"
@@ -60,7 +69,8 @@ class SqlImplementationInfo(Base):
 class SqlLanguages(Base):
     __tablename__= "sql_languages"
     __table_args__ = {"schema": "information_schema"}
-    
+    #__mapper_args__ = {"primary_key":(col1, col2)}}
+
     #TODO
     #set the correct column types
     sql_language_source = Column(Unicode)

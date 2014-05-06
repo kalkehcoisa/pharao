@@ -3,7 +3,7 @@
 from pyramid.view import view_config
 from ..backends import (MySession, MyBase, mysql_engine)
 from ..backends import (PgSession, PgBase, pg_engine)
-from ..backends.postgresql import SqlImplementationInfo
+from ..backends.postgresql import *
 from pharao import backends
 
 
@@ -18,8 +18,8 @@ def home(request):
     pgdbs = [p[0] for p in connection.execute("SELECT * FROM pg_database WHERE datistemplate = False;").fetchall()]
 
     print('\n\n')
-    for p in PgSession.query(SqlImplementationInfo).all():
-        print(p.character_value)
+    for p in PgSession.query(SqlLanguages).all():
+        print(p)
     print('\n\n')
 
     #print( connection.execute("select column_name from INFORMATION_SCHEMA.COLUMNS where table_name = 'pg_database';").fetchall() )
