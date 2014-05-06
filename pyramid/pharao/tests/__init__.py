@@ -1,5 +1,24 @@
 #-*- coding:utf-8 -*-
 
+import unittest
+
+from pyramid import testing
+
+
+class ViewTests(unittest.TestCase):
+    def setUp(self):
+        self.config = testing.setUp()
+
+    def tearDown(self):
+        testing.tearDown()
+
+    def test_my_view(self):
+        from ..views import my_view
+        request = testing.DummyRequest()
+        info = my_view(request)
+        self.assertEqual(info['project'], 'pharao')
+
+
 '''from pyramid.config import Configurator
 from sqlalchemy import create_engine
 
@@ -102,4 +121,5 @@ class AuthDummyRequest(testing.DummyRequest):
     def set_userid(self, id):
         self.authenticated_userid = id
         self.unauthenticated_userid = id'''
+
 
