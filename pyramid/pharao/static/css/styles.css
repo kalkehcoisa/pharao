@@ -1,8 +1,9 @@
-body {
+body
+{
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 300;
   color: #ffffff;
-  background: #bc2131;
+  background-color: #aaaaaa;
 }
 
 h1,
@@ -13,8 +14,28 @@ h5,
 h6 { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: 300; }
 p { font-weight: 300; }
 
+
+div.main-menu
+{
+	float: left;
+	width: 300px;
+	height: 100%;
+	padding: 20px;
+}
 iframe#body
 {
 	min-height: 600px;
 	min-width: 600px;
-};
+
+	border: 0;
+	border-left: 2px solid;
+}
+
+.links ul li
+{
+	display: inline-block;
+	list-style-type:none;
+	margin:0;
+	padding:0;
+}
+

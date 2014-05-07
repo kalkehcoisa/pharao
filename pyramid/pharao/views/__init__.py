@@ -12,7 +12,7 @@ def home(request):
     #mysqldbs = [p[0] for p in connection.execute('SHOW DATABASES;').fetchall()]
 
     pgdbs = [p[0] for p in Postgresql.databases()]
-    tables = Postgresql.schemas('testes')
+    tables = Postgresql.tables(database='testes', schema='quack')
 
     print('\n\n')
     print(tables)
@@ -28,3 +28,12 @@ def home(request):
 def left_menu(request):
 
     return {'project': 'Pharao'}
+
+
+@view_config(name='frame_home', 
+             context="..resources.Resource",
+             renderer='pharao:templates/frames/home.pt')
+def frame_home(request):
+
+    return {'project': 'Pharao'}
+

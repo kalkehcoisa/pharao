@@ -1,0 +1,17 @@
+<div class="container">
+    <more tal:omit-tag="" metal:define-slot="body"></more>
+
+    <div class="footer">
+      <div class="links">
+        <ul>
+          <li class="current-version">Currently v0.1.1.1</li>
+          <li>
+              <i class="glyphicon glyphicon-cog icon-muted"></i>
+              <a href="https://github.com/kalkehcoisa/pharao">Github Project</a>
+          </li>
+          <li>
+              Copyleft - Pharao Project
+          </li>
+      </div>
+    </div>
+</div>

@@ -46,22 +46,23 @@ class Postgresql():
             self.connect(dbname=database)
         query = """SELECT pn.nspname, pu.usename AS nspowner, pg_catalog.obj_description(pn.oid, 'pg_namespace') AS nspcomment
                   FROM pg_catalog.pg_namespace pn LEFT JOIN pg_catalog.pg_user pu ON (pn.nspowner = pu.usesysid)
-                  WHERE nspname NOT LIKE 'pg\\\\_%%' ORDER BY nspname"""
+                  WHERE pn.nspname NOT LIKE 'pg@_%%' ESCAPE '@' ORDER BY nspname"""
         return [p for p in self.connection.execute(query).fetchall()]
 
+    #Postgresql only list the tables of the current database you're connected to
+    def tables(self, all=False, database=None, schema=None):
+        if database:
+            self.connect(dbname=database)
 
-    def tables(self, all = False):
-        where = "AND c.relname NOT LIKE 'pg@_%%' ESCAPE '@' " if all else ""
+        where_schema = "AND tb.table_schema = '%s'"%schema if schema else ""
+        where = "AND tb.table_schema NOT LIKE 'pg@_%%' ESCAPE '@' " if not all else ""
 
-        query = """SELECT NULL AS nspname, c.relname,
-                    (SELECT usename FROM pg_user u WHERE u.usesysid=c.relowner) AS relowner,
-                    (SELECT description FROM pg_description pd WHERE c.oid=pd.objoid) AS relcomment,
-                    reltuples::bigint AS reltuples
-                FROM pg_class c
-                WHERE c.relkind='r'
-                    AND NOT EXISTS (SELECT 1 FROM pg_rewrite r WHERE r.ev_class = c.oid AND r.ev_type = '1')
+        query = """SELECT tb.table_catalog, tb.table_schema, tb.table_name
+                   FROM information_schema.tables tb
+                   WHERE tb.table_schema != 'information_schema'
                     """+where+"""
-                ORDER BY relname"""
+                    """+where_schema+"""
+                ORDER BY tb.table_schema, tb.table_name"""
 
         return [p for p in self.connection.execute(query).fetchall()]
 
