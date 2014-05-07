@@ -112,8 +112,8 @@ def main(global_config, **settings):
     """ This function returns a Pyramid WSGI application.
     """
     
-    MySession.configure(bind=mysql_engine)
-    MyBase.metadata.bind = mysql_engine
+    #MySession.configure(bind=mysql_engine)
+    #MyBase.metadata.bind = mysql_engine
     #Base.metadata.create_all(engine)
 
     #e("show tables").fetchall()

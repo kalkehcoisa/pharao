@@ -1,0 +1,1870 @@
+  Table "pg_catalog.pg_aggregate"
+    Column    |  Type   | Modifiers 
+--------------+---------+-----------
+ aggfnoid     | regproc | not null
+ aggtransfn   | regproc | not null
+ aggfinalfn   | regproc | not null
+ aggsortop    | oid     | not null
+ aggtranstype | oid     | not null
+ agginitval   | text    | 
+Indexes:
+    "pg_aggregate_fnoid_index" UNIQUE, btree (aggfnoid)
+
+Index "pg_catalog.pg_aggregate_fnoid_index"
+  Column  |  Type   
+----------+---------
+ aggfnoid | regproc
+unique, btree, for table "pg_catalog.pg_aggregate"
+
+        Table "pg_catalog.pg_am"
+     Column      |   Type   | Modifiers 
+-----------------+----------+-----------
+ amname          | name     | not null
+ amstrategies    | smallint | not null
+ amsupport       | smallint | not null
+ amcanorder      | boolean  | not null
+ amcanbackward   | boolean  | not null
+ amcanunique     | boolean  | not null
+ amcanmulticol   | boolean  | not null
+ amoptionalkey   | boolean  | not null
+ amindexnulls    | boolean  | not null
+ amsearchnulls   | boolean  | not null
+ amstorage       | boolean  | not null
+ amclusterable   | boolean  | not null
+ amkeytype       | oid      | not null
+ aminsert        | regproc  | not null
+ ambeginscan     | regproc  | not null
+ amgettuple      | regproc  | not null
+ amgetbitmap     | regproc  | not null
+ amrescan        | regproc  | not null
+ amendscan       | regproc  | not null
+ ammarkpos       | regproc  | not null
+ amrestrpos      | regproc  | not null
+ ambuild         | regproc  | not null
+ ambulkdelete    | regproc  | not null
+ amvacuumcleanup | regproc  | not null
+ amcostestimate  | regproc  | not null
+ amoptions       | regproc  | not null
+Indexes:
+    "pg_am_name_index" UNIQUE, btree (amname)
+    "pg_am_oid_index" UNIQUE, btree (oid)
+
+Index "pg_catalog.pg_am_name_index"
+ Column |  Type   
+--------+---------
+ amname | cstring
+unique, btree, for table "pg_catalog.pg_am"
+
+Index "pg_catalog.pg_am_oid_index"
+ Column | Type 
+--------+------
+ oid    | oid
+unique, btree, for table "pg_catalog.pg_am"
+
+      Table "pg_catalog.pg_amop"
+    Column     |   Type   | Modifiers 
+---------------+----------+-----------
+ amopfamily    | oid      | not null
+ amoplefttype  | oid      | not null
+ amoprighttype | oid      | not null
+ amopstrategy  | smallint | not null
+ amopopr       | oid      | not null
+ amopmethod    | oid      | not null
+Indexes:
+    "pg_amop_fam_strat_index" UNIQUE, btree (amopfamily, amoplefttype, amoprighttype, amopstrategy)
+    "pg_amop_oid_index" UNIQUE, btree (oid)
+    "pg_amop_opr_fam_index" UNIQUE, btree (amopopr, amopfamily)
+
+Index "pg_catalog.pg_amop_fam_strat_index"
+    Column     |   Type   
+---------------+----------
+ amopfamily    | oid
+ amoplefttype  | oid
+ amoprighttype | oid
+ amopstrategy  | smallint
+unique, btree, for table "pg_catalog.pg_amop"
+
+Index "pg_catalog.pg_amop_oid_index"
+ Column | Type 
+--------+------
+ oid    | oid
+unique, btree, for table "pg_catalog.pg_amop"
+
+Index "pg_catalog.pg_amop_opr_fam_index"
+   Column   | Type 
+------------+------
+ amopopr    | oid
+ amopfamily | oid
+unique, btree, for table "pg_catalog.pg_amop"
+
+      Table "pg_catalog.pg_amproc"
+     Column      |   Type   | Modifiers 
+-----------------+----------+-----------
+ amprocfamily    | oid      | not null
+ amproclefttype  | oid      | not null
+ amprocrighttype | oid      | not null
+ amprocnum       | smallint | not null
+ amproc          | regproc  | not null
+Indexes:
+    "pg_amproc_fam_proc_index" UNIQUE, btree (amprocfamily, amproclefttype, amprocrighttype, amprocnum)
+    "pg_amproc_oid_index" UNIQUE, btree (oid)
+
+Index "pg_catalog.pg_amproc_fam_proc_index"
+     Column      |   Type   
+-----------------+----------
+ amprocfamily    | oid
+ amproclefttype  | oid
+ amprocrighttype | oid
+ amprocnum       | smallint
+unique, btree, for table "pg_catalog.pg_amproc"
+
+Index "pg_catalog.pg_amproc_oid_index"
+ Column | Type 
+--------+------
+ oid    | oid
+unique, btree, for table "pg_catalog.pg_amproc"
+
+ Table "pg_catalog.pg_attrdef"
+ Column  |   Type   | Modifiers 
+---------+----------+-----------
+ adrelid | oid      | not null
+ adnum   | smallint | not null
+ adbin   | text     | 
+ adsrc   | text     | 
+Indexes:
+    "pg_attrdef_adrelid_adnum_index" UNIQUE, btree (adrelid, adnum)
+    "pg_attrdef_oid_index" UNIQUE, btree (oid)
+
+Index "pg_catalog.pg_attrdef_adrelid_adnum_index"
+ Column  |   Type   
+---------+----------
+ adrelid | oid
+ adnum   | smallint
+unique, btree, for table "pg_catalog.pg_attrdef"
+
+Index "pg_catalog.pg_attrdef_oid_index"
+ Column | Type 
+--------+------
+ oid    | oid
+unique, btree, for table "pg_catalog.pg_attrdef"
+
+    Table "pg_catalog.pg_attribute"
+    Column     |   Type    | Modifiers 
+---------------+-----------+-----------
+ attrelid      | oid       | not null
+ attname       | name      | not null
+ atttypid      | oid       | not null
+ attstattarget | integer   | not null
+ attlen        | smallint  | not null
+ attnum        | smallint  | not null
+ attndims      | integer   | not null
+ attcacheoff   | integer   | not null
+ atttypmod     | integer   | not null
+ attbyval      | boolean   | not null
+ attstorage    | "char"    | not null
+ attalign      | "char"    | not null
+ attnotnull    | boolean   | not null
+ atthasdef     | boolean   | not null
+ attisdropped  | boolean   | not null
+ attislocal    | boolean   | not null
+ attinhcount   | integer   | not null
+ attacl        | aclitem[] | 
+Indexes:
+    "pg_attribute_relid_attnam_index" UNIQUE, btree (attrelid, attname)
+    "pg_attribute_relid_attnum_index" UNIQUE, btree (attrelid, attnum)
+
+Index "pg_catalog.pg_attribute_relid_attnam_index"
+  Column  |  Type   
+----------+---------
+ attrelid | oid
+ attname  | cstring
+unique, btree, for table "pg_catalog.pg_attribute"
+
+Index "pg_catalog.pg_attribute_relid_attnum_index"
+  Column  |   Type   
+----------+----------
+ attrelid | oid
+ attnum   | smallint
+unique, btree, for table "pg_catalog.pg_attribute"
+
+ Table "pg_catalog.pg_auth_members"
+    Column    |  Type   | Modifiers 
+--------------+---------+-----------
+ roleid       | oid     | not null
+ member       | oid     | not null
+ grantor      | oid     | not null
+ admin_option | boolean | not null
+Indexes:
+    "pg_auth_members_member_role_index" UNIQUE, btree (member, roleid), tablespace "pg_global"
+    "pg_auth_members_role_member_index" UNIQUE, btree (roleid, member), tablespace "pg_global"
+Triggers:
+    pg_sync_pg_auth_members AFTER INSERT OR DELETE OR UPDATE ON pg_auth_members FOR EACH STATEMENT EXECUTE PROCEDURE flatfile_update_trigger()
+Tablespace: "pg_global"
+
+Index "pg_catalog.pg_auth_members_member_role_index"
+ Column | Type 
+--------+------
+ member | oid
+ roleid | oid
+unique, btree, for table "pg_catalog.pg_auth_members"
+Tablespace: "pg_global"
+
+Index "pg_catalog.pg_auth_members_role_member_index"
+ Column | Type 
+--------+------
+ roleid | oid
+ member | oid
+unique, btree, for table "pg_catalog.pg_auth_members"
+Tablespace: "pg_global"
+
+             Table "pg_catalog.pg_authid"
+    Column     |           Type           | Modifiers 
+---------------+--------------------------+-----------
+ rolname       | name                     | not null
+ rolsuper      | boolean                  | not null
+ rolinherit    | boolean                  | not null
+ rolcreaterole | boolean                  | not null
+ rolcreatedb   | boolean                  | not null
+ rolcatupdate  | boolean                  | not null
+ rolcanlogin   | boolean                  | not null
+ rolconnlimit  | integer                  | not null
+ rolpassword   | text                     | 
+ rolvaliduntil | timestamp with time zone | 
+ rolconfig     | text[]                   | 
+Indexes:
+    "pg_authid_oid_index" UNIQUE, btree (oid), tablespace "pg_global"
+    "pg_authid_rolname_index" UNIQUE, btree (rolname), tablespace "pg_global"
+Triggers:
+    pg_sync_pg_authid AFTER INSERT OR DELETE OR UPDATE ON pg_authid FOR EACH STATEMENT EXECUTE PROCEDURE flatfile_update_trigger()
+Tablespace: "pg_global"
+
+Index "pg_catalog.pg_authid_oid_index"
+ Column | Type 
+--------+------
+ oid    | oid
+unique, btree, for table "pg_catalog.pg_authid"
+Tablespace: "pg_global"
+
+Index "pg_catalog.pg_authid_rolname_index"
+ Column  |  Type   
+---------+---------
+ rolname | cstring
+unique, btree, for table "pg_catalog.pg_authid"
+Tablespace: "pg_global"
+
+    Table "pg_catalog.pg_cast"
+   Column    |  Type  | Modifiers 
+-------------+--------+-----------
+ castsource  | oid    | not null
+ casttarget  | oid    | not null
+ castfunc    | oid    | not null
+ castcontext | "char" | not null
+ castmethod  | "char" | not null
+Indexes:
+    "pg_cast_oid_index" UNIQUE, btree (oid)
+    "pg_cast_source_target_index" UNIQUE, btree (castsource, casttarget)
+
+Index "pg_catalog.pg_cast_oid_index"
+ Column | Type 
+--------+------
+ oid    | oid
+unique, btree, for table "pg_catalog.pg_cast"
+
+Index "pg_catalog.pg_cast_source_target_index"
+   Column   | Type 
+------------+------
+ castsource | oid
+ casttarget | oid
+unique, btree, for table "pg_catalog.pg_cast"
+
+      Table "pg_catalog.pg_class"
+     Column     |   Type    | Modifiers 
+----------------+-----------+-----------
+ relname        | name      | not null
+ relnamespace   | oid       | not null
+ reltype        | oid       | not null
+ relowner       | oid       | not null
+ relam          | oid       | not null
+ relfilenode    | oid       | not null
+ reltablespace  | oid       | not null
+ relpages       | integer   | not null
+ reltuples      | real      | not null
+ reltoastrelid  | oid       | not null
+ reltoastidxid  | oid       | not null
+ relhasindex    | boolean   | not null
+ relisshared    | boolean   | not null
+ relistemp      | boolean   | not null
+ relkind        | "char"    | not null
+ relnatts       | smallint  | not null
+ relchecks      | smallint  | not null
+ relhasoids     | boolean   | not null
+ relhaspkey     | boolean   | not null
+ relhasrules    | boolean   | not null
+ relhastriggers | boolean   | not null
+ relhassubclass | boolean   | not null
+ relfrozenxid   | xid       | not null
+ relacl         | aclitem[] | 
+ reloptions     | text[]    | 
+Indexes:
+    "pg_class_oid_index" UNIQUE, btree (oid)
+    "pg_class_relname_nsp_index" UNIQUE, btree (relname, relnamespace)
+
+Index "pg_catalog.pg_class_oid_index"
+ Column | Type 
+--------+------
+ oid    | oid
+unique, btree, for table "pg_catalog.pg_class"
+
+Index "pg_catalog.pg_class_relname_nsp_index"
+    Column    |  Type   
+--------------+---------
+ relname      | cstring
+ relnamespace | oid
+unique, btree, for table "pg_catalog.pg_class"
+
+    Table "pg_catalog.pg_constraint"
+    Column     |    Type    | Modifiers 
+---------------+------------+-----------
+ conname       | name       | not null
+ connamespace  | oid        | not null
+ contype       | "char"     | not null
+ condeferrable | boolean    | not null
+ condeferred   | boolean    | not null
+ conrelid      | oid        | not null
+ contypid      | oid        | not null
+ confrelid     | oid        | not null
+ confupdtype   | "char"     | not null
+ confdeltype   | "char"     | not null
+ confmatchtype | "char"     | not null
+ conislocal    | boolean    | not null
+ coninhcount   | integer    | not null
+ conkey        | smallint[] | 
+ confkey       | smallint[] | 
+ conpfeqop     | oid[]      | 
+ conppeqop     | oid[]      | 
+ conffeqop     | oid[]      | 
+ conbin        | text       | 
+ consrc        | text       | 
+Indexes:
+    "pg_constraint_oid_index" UNIQUE, btree (oid)
+    "pg_constraint_conname_nsp_index" btree (conname, connamespace)
+    "pg_constraint_conrelid_index" btree (conrelid)
+    "pg_constraint_contypid_index" btree (contypid)
+
+Index "pg_catalog.pg_constraint_conname_nsp_index"
+    Column    |  Type   
+--------------+---------
+ conname      | cstring
+ connamespace | oid
+btree, for table "pg_catalog.pg_constraint"
+
+Index "pg_catalog.pg_constraint_conrelid_index"
+  Column  | Type 
+----------+------
+ conrelid | oid
+btree, for table "pg_catalog.pg_constraint"
+
+Index "pg_catalog.pg_constraint_contypid_index"
+  Column  | Type 
+----------+------
+ contypid | oid
+btree, for table "pg_catalog.pg_constraint"
+
+Index "pg_catalog.pg_constraint_oid_index"
+ Column | Type 
+--------+------
+ oid    | oid
+unique, btree, for table "pg_catalog.pg_constraint"
+
+   Table "pg_catalog.pg_conversion"
+     Column     |  Type   | Modifiers 
+----------------+---------+-----------
+ conname        | name    | not null
+ connamespace   | oid     | not null
+ conowner       | oid     | not null
+ conforencoding | integer | not null
+ contoencoding  | integer | not null
+ conproc        | regproc | not null
+ condefault     | boolean | not null
+Indexes:
+    "pg_conversion_default_index" UNIQUE, btree (connamespace, conforencoding, contoencoding, oid)
+    "pg_conversion_name_nsp_index" UNIQUE, btree (conname, connamespace)
+    "pg_conversion_oid_index" UNIQUE, btree (oid)
+
+Index "pg_catalog.pg_conversion_default_index"
+     Column     |  Type   
+----------------+---------
+ connamespace   | oid
+ conforencoding | integer
+ contoencoding  | integer
+ oid            | oid
+unique, btree, for table "pg_catalog.pg_conversion"
+
+Index "pg_catalog.pg_conversion_name_nsp_index"
+    Column    |  Type   
+--------------+---------
+ conname      | cstring
+ connamespace | oid
+unique, btree, for table "pg_catalog.pg_conversion"
+
+Index "pg_catalog.pg_conversion_oid_index"
+ Column | Type 
+--------+------
+ oid    | oid
+unique, btree, for table "pg_catalog.pg_conversion"
+
+             View "pg_catalog.pg_cursors"
+    Column     |           Type           | Modifiers 
+---------------+--------------------------+-----------
+ name          | text                     | 
+ statement     | text                     | 
+ is_holdable   | boolean                  | 
+ is_binary     | boolean                  | 
+ is_scrollable | boolean                  | 
+ creation_time | timestamp with time zone | 
+View definition:
+ SELECT c.name, c.statement, c.is_holdable, c.is_binary, c.is_scrollable, c.creation_time
+   FROM pg_cursor() c(name, statement, is_holdable, is_binary, is_scrollable, creation_time);
+
+    Table "pg_catalog.pg_database"
+    Column     |   Type    | Modifiers 
+---------------+-----------+-----------
+ datname       | name      | not null
+ datdba        | oid       | not null
+ encoding      | integer   | not null
+ datcollate    | name      | not null
+ datctype      | name      | not null
+ datistemplate | boolean   | not null
+ datallowconn  | boolean   | not null
+ datconnlimit  | integer   | not null
+ datlastsysoid | oid       | not null
+ datfrozenxid  | xid       | not null
+ dattablespace | oid       | not null
+ datconfig     | text[]    | 
+ datacl        | aclitem[] | 
+Indexes:
+    "pg_database_datname_index" UNIQUE, btree (datname), tablespace "pg_global"
+    "pg_database_oid_index" UNIQUE, btree (oid), tablespace "pg_global"
+Triggers:
+    pg_sync_pg_database AFTER INSERT OR DELETE OR UPDATE ON pg_database FOR EACH STATEMENT EXECUTE PROCEDURE flatfile_update_trigger()
+Tablespace: "pg_global"
+
+Index "pg_catalog.pg_database_datname_index"
+ Column  |  Type   
+---------+---------
+ datname | cstring
+unique, btree, for table "pg_catalog.pg_database"
+Tablespace: "pg_global"
+
+Index "pg_catalog.pg_database_oid_index"
+ Column | Type 
+--------+------
+ oid    | oid
+unique, btree, for table "pg_catalog.pg_database"
+Tablespace: "pg_global"
+
+   Table "pg_catalog.pg_depend"
+   Column    |  Type   | Modifiers 
+-------------+---------+-----------
+ classid     | oid     | not null
+ objid       | oid     | not null
+ objsubid    | integer | not null
+ refclassid  | oid     | not null
+ refobjid    | oid     | not null
+ refobjsubid | integer | not null
+ deptype     | "char"  | not null
+Indexes:
+    "pg_depend_depender_index" btree (classid, objid, objsubid)
+    "pg_depend_reference_index" btree (refclassid, refobjid, refobjsubid)
+
+Index "pg_catalog.pg_depend_depender_index"
+  Column  |  Type   
+----------+---------
+ classid  | oid
+ objid    | oid
+ objsubid | integer
+btree, for table "pg_catalog.pg_depend"
+
+Index "pg_catalog.pg_depend_reference_index"
+   Column    |  Type   
+-------------+---------
+ refclassid  | oid
+ refobjid    | oid
+ refobjsubid | integer
+btree, for table "pg_catalog.pg_depend"
+
+ Table "pg_catalog.pg_description"
+   Column    |  Type   | Modifiers 
+-------------+---------+-----------
+ objoid      | oid     | not null
+ classoid    | oid     | not null
+ objsubid    | integer | not null
+ description | text    | 
+Indexes:
+    "pg_description_o_c_o_index" UNIQUE, btree (objoid, classoid, objsubid)
+
+Index "pg_catalog.pg_description_o_c_o_index"
+  Column  |  Type   
+----------+---------
+ objoid   | oid
+ classoid | oid
+ objsubid | integer
+unique, btree, for table "pg_catalog.pg_description"
+
+  Table "pg_catalog.pg_enum"
+  Column   | Type | Modifiers 
+-----------+------+-----------
+ enumtypid | oid  | not null
+ enumlabel | name | not null
+Indexes:
+    "pg_enum_oid_index" UNIQUE, btree (oid)
+    "pg_enum_typid_label_index" UNIQUE, btree (enumtypid, enumlabel)
+
+Index "pg_catalog.pg_enum_oid_index"
+ Column | Type 
+--------+------
+ oid    | oid
+unique, btree, for table "pg_catalog.pg_enum"
+
+Index "pg_catalog.pg_enum_typid_label_index"
+  Column   |  Type   
+-----------+---------
+ enumtypid | oid
+ enumlabel | cstring
+unique, btree, for table "pg_catalog.pg_enum"
+
+Table "pg_catalog.pg_foreign_data_wrapper"
+    Column    |   Type    | Modifiers 
+--------------+-----------+-----------
+ fdwname      | name      | not null
+ fdwowner     | oid       | not null
+ fdwvalidator | oid       | not null
+ fdwacl       | aclitem[] | 
+ fdwoptions   | text[]    | 
+Indexes:
+    "pg_foreign_data_wrapper_name_index" UNIQUE, btree (fdwname)
+    "pg_foreign_data_wrapper_oid_index" UNIQUE, btree (oid)
+
+Index "pg_catalog.pg_foreign_data_wrapper_name_index"
+ Column  |  Type   
+---------+---------
+ fdwname | cstring
+unique, btree, for table "pg_catalog.pg_foreign_data_wrapper"
+
+Index "pg_catalog.pg_foreign_data_wrapper_oid_index"
+ Column | Type 
+--------+------
+ oid    | oid
+unique, btree, for table "pg_catalog.pg_foreign_data_wrapper"
+
+Table "pg_catalog.pg_foreign_server"
+   Column   |   Type    | Modifiers 
+------------+-----------+-----------
+ srvname    | name      | not null
+ srvowner   | oid       | not null
+ srvfdw     | oid       | not null
+ srvtype    | text      | 
+ srvversion | text      | 
+ srvacl     | aclitem[] | 
+ srvoptions | text[]    | 
+Indexes:
+    "pg_foreign_server_name_index" UNIQUE, btree (srvname)
+    "pg_foreign_server_oid_index" UNIQUE, btree (oid)
+
+Index "pg_catalog.pg_foreign_server_name_index"
+ Column  |  Type   
+---------+---------
+ srvname | cstring
+unique, btree, for table "pg_catalog.pg_foreign_server"
+
+Index "pg_catalog.pg_foreign_server_oid_index"
+ Column | Type 
+--------+------
+ oid    | oid
+unique, btree, for table "pg_catalog.pg_foreign_server"
+
+  View "pg_catalog.pg_group"
+  Column  | Type  | Modifiers 
+----------+-------+-----------
+ groname  | name  | 
+ grosysid | oid   | 
+ grolist  | oid[] | 
+View definition:
+ SELECT pg_authid.rolname AS groname, pg_authid.oid AS grosysid, ARRAY( SELECT pg_auth_members.member
+           FROM pg_auth_members
+          WHERE pg_auth_members.roleid = pg_authid.oid) AS grolist
+   FROM pg_authid
+  WHERE NOT pg_authid.rolcanlogin;
+
+       Table "pg_catalog.pg_index"
+     Column     |    Type    | Modifiers 
+----------------+------------+-----------
+ indexrelid     | oid        | not null
+ indrelid       | oid        | not null
+ indnatts       | smallint   | not null
+ indisunique    | boolean    | not null
+ indisprimary   | boolean    | not null
+ indisclustered | boolean    | not null
+ indisvalid     | boolean    | not null
+ indcheckxmin   | boolean    | not null
+ indisready     | boolean    | not null
+ indkey         | int2vector | not null
+ indclass       | oidvector  | not null
+ indoption      | int2vector | not null
+ indexprs       | text       | 
+ indpred        | text       | 
+Indexes:
+    "pg_index_indexrelid_index" UNIQUE, btree (indexrelid)
+    "pg_index_indrelid_index" btree (indrelid)
+
+Index "pg_catalog.pg_index_indexrelid_index"
+   Column   | Type 
+------------+------
+ indexrelid | oid
+unique, btree, for table "pg_catalog.pg_index"
+
+Index "pg_catalog.pg_index_indrelid_index"
+  Column  | Type 
+----------+------
+ indrelid | oid
+btree, for table "pg_catalog.pg_index"
+
+ View "pg_catalog.pg_indexes"
+   Column   | Type | Modifiers 
+------------+------+-----------
+ schemaname | name | 
+ tablename  | name | 
+ indexname  | name | 
+ tablespace | name | 
+ indexdef   | text | 
+View definition:
+ SELECT n.nspname AS schemaname, c.relname AS tablename, i.relname AS indexname, t.spcname AS tablespace, pg_get_indexdef(i.oid) AS indexdef
+   FROM pg_index x
+   JOIN pg_class c ON c.oid = x.indrelid
+   JOIN pg_class i ON i.oid = x.indexrelid
+   LEFT JOIN pg_namespace n ON n.oid = c.relnamespace
+   LEFT JOIN pg_tablespace t ON t.oid = i.reltablespace
+  WHERE c.relkind = 'r'::"char" AND i.relkind = 'i'::"char";
+
+ Table "pg_catalog.pg_inherits"
+  Column   |  Type   | Modifiers 
+-----------+---------+-----------
+ inhrelid  | oid     | not null
+ inhparent | oid     | not null
+ inhseqno  | integer | not null
+Indexes:
+    "pg_inherits_relid_seqno_index" UNIQUE, btree (inhrelid, inhseqno)
+
+Index "pg_catalog.pg_inherits_relid_seqno_index"
+  Column  |  Type   
+----------+---------
+ inhrelid | oid
+ inhseqno | integer
+unique, btree, for table "pg_catalog.pg_inherits"
+
+    Table "pg_catalog.pg_language"
+    Column     |   Type    | Modifiers 
+---------------+-----------+-----------
+ lanname       | name      | not null
+ lanowner      | oid       | not null
+ lanispl       | boolean   | not null
+ lanpltrusted  | boolean   | not null
+ lanplcallfoid | oid       | not null
+ lanvalidator  | oid       | not null
+ lanacl        | aclitem[] | 
+Indexes:
+    "pg_language_name_index" UNIQUE, btree (lanname)
+    "pg_language_oid_index" UNIQUE, btree (oid)
+
+Index "pg_catalog.pg_language_name_index"
+ Column  |  Type   
+---------+---------
+ lanname | cstring
+unique, btree, for table "pg_catalog.pg_language"
+
+Index "pg_catalog.pg_language_oid_index"
+ Column | Type 
+--------+------
+ oid    | oid
+unique, btree, for table "pg_catalog.pg_language"
+
+Table "pg_catalog.pg_largeobject"
+ Column |  Type   | Modifiers 
+--------+---------+-----------
+ loid   | oid     | not null
+ pageno | integer | not null
+ data   | bytea   | 
+Indexes:
+    "pg_largeobject_loid_pn_index" UNIQUE, btree (loid, pageno)
+
+Index "pg_catalog.pg_largeobject_loid_pn_index"
+ Column |  Type   
+--------+---------
+ loid   | oid
+ pageno | integer
+unique, btree, for table "pg_catalog.pg_largeobject"
+
+   Table "pg_catalog.pg_listener"
+    Column    |  Type   | Modifiers 
+--------------+---------+-----------
+ relname      | name    | not null
+ listenerpid  | integer | not null
+ notification | integer | not null
+
+        View "pg_catalog.pg_locks"
+       Column       |   Type   | Modifiers 
+--------------------+----------+-----------
+ locktype           | text     | 
+ database           | oid      | 
+ relation           | oid      | 
+ page               | integer  | 
+ tuple              | smallint | 
+ virtualxid         | text     | 
+ transactionid      | xid      | 
+ classid            | oid      | 
+ objid              | oid      | 
+ objsubid           | smallint | 
+ virtualtransaction | text     | 
+ pid                | integer  | 
+ mode               | text     | 
+ granted            | boolean  | 
+View definition:
+ SELECT l.locktype, l.database, l.relation, l.page, l.tuple, l.virtualxid, l.transactionid, l.classid, l.objid, l.objsubid, l.virtualtransaction, l.pid, l.mode, l.granted
+   FROM pg_lock_status() l(locktype, database, relation, page, tuple, virtualxid, transactionid, classid, objid, objsubid, virtualtransaction, pid, mode, granted);
+
+ Table "pg_catalog.pg_namespace"
+  Column  |   Type    | Modifiers 
+----------+-----------+-----------
+ nspname  | name      | not null
+ nspowner | oid       | not null
+ nspacl   | aclitem[] | 
+Indexes:
+    "pg_namespace_nspname_index" UNIQUE, btree (nspname)
+    "pg_namespace_oid_index" UNIQUE, btree (oid)
+
+Index "pg_catalog.pg_namespace_nspname_index"
+ Column  |  Type   
+---------+---------
+ nspname | cstring
+unique, btree, for table "pg_catalog.pg_namespace"
+
+Index "pg_catalog.pg_namespace_oid_index"
+ Column | Type 
+--------+------
+ oid    | oid
+unique, btree, for table "pg_catalog.pg_namespace"
+
+   Table "pg_catalog.pg_opclass"
+    Column    |  Type   | Modifiers 
+--------------+---------+-----------
+ opcmethod    | oid     | not null
+ opcname      | name    | not null
+ opcnamespace | oid     | not null
+ opcowner     | oid     | not null
+ opcfamily    | oid     | not null
+ opcintype    | oid     | not null
+ opcdefault   | boolean | not null
+ opckeytype   | oid     | not null
+Indexes:
+    "pg_opclass_am_name_nsp_index" UNIQUE, btree (opcmethod, opcname, opcnamespace)
+    "pg_opclass_oid_index" UNIQUE, btree (oid)
+
+Index "pg_catalog.pg_opclass_am_name_nsp_index"
+    Column    |  Type   
+--------------+---------
+ opcmethod    | oid
+ opcname      | cstring
+ opcnamespace | oid
+unique, btree, for table "pg_catalog.pg_opclass"
+
+Index "pg_catalog.pg_opclass_oid_index"
+ Column | Type 
+--------+------
+ oid    | oid
+unique, btree, for table "pg_catalog.pg_opclass"
+
+   Table "pg_catalog.pg_operator"
+    Column    |  Type   | Modifiers 
+--------------+---------+-----------
+ oprname      | name    | not null
+ oprnamespace | oid     | not null
+ oprowner     | oid     | not null
+ oprkind      | "char"  | not null
+ oprcanmerge  | boolean | not null
+ oprcanhash   | boolean | not null
+ oprleft      | oid     | not null
+ oprright     | oid     | not null
+ oprresult    | oid     | not null
+ oprcom       | oid     | not null
+ oprnegate    | oid     | not null
+ oprcode      | regproc | not null
+ oprrest      | regproc | not null
+ oprjoin      | regproc | not null
+Indexes:
+    "pg_operator_oid_index" UNIQUE, btree (oid)
+    "pg_operator_oprname_l_r_n_index" UNIQUE, btree (oprname, oprleft, oprright, oprnamespace)
+
+Index "pg_catalog.pg_operator_oid_index"
+ Column | Type 
+--------+------
+ oid    | oid
+unique, btree, for table "pg_catalog.pg_operator"
+
+Index "pg_catalog.pg_operator_oprname_l_r_n_index"
+    Column    |  Type   
+--------------+---------
+ oprname      | cstring
+ oprleft      | oid
+ oprright     | oid
+ oprnamespace | oid
+unique, btree, for table "pg_catalog.pg_operator"
+
+ Table "pg_catalog.pg_opfamily"
+    Column    | Type | Modifiers 
+--------------+------+-----------
+ opfmethod    | oid  | not null
+ opfname      | name | not null
+ opfnamespace | oid  | not null
+ opfowner     | oid  | not null
+Indexes:
+    "pg_opfamily_am_name_nsp_index" UNIQUE, btree (opfmethod, opfname, opfnamespace)
+    "pg_opfamily_oid_index" UNIQUE, btree (oid)
+
+Index "pg_catalog.pg_opfamily_am_name_nsp_index"
+    Column    |  Type   
+--------------+---------
+ opfmethod    | oid
+ opfname      | cstring
+ opfnamespace | oid
+unique, btree, for table "pg_catalog.pg_opfamily"
+
+Index "pg_catalog.pg_opfamily_oid_index"
+ Column | Type 
+--------+------
+ oid    | oid
+unique, btree, for table "pg_catalog.pg_opfamily"
+
+   Table "pg_catalog.pg_pltemplate"
+    Column     |   Type    | Modifiers 
+---------------+-----------+-----------
+ tmplname      | name      | not null
+ tmpltrusted   | boolean   | not null
+ tmpldbacreate | boolean   | not null
+ tmplhandler   | text      | 
+ tmplvalidator | text      | 
+ tmpllibrary   | text      | 
+ tmplacl       | aclitem[] | 
+Indexes:
+    "pg_pltemplate_name_index" UNIQUE, btree (tmplname), tablespace "pg_global"
+Tablespace: "pg_global"
+
+Index "pg_catalog.pg_pltemplate_name_index"
+  Column  |  Type   
+----------+---------
+ tmplname | cstring
+unique, btree, for table "pg_catalog.pg_pltemplate"
+Tablespace: "pg_global"
+
+        View "pg_catalog.pg_prepared_statements"
+     Column      |           Type           | Modifiers 
+-----------------+--------------------------+-----------
+ name            | text                     | 
+ statement       | text                     | 
+ prepare_time    | timestamp with time zone | 
+ parameter_types | regtype[]                | 
+ from_sql        | boolean                  | 
+View definition:
+ SELECT p.name, p.statement, p.prepare_time, p.parameter_types, p.from_sql
+   FROM pg_prepared_statement() p(name, statement, prepare_time, parameter_types, from_sql);
+
+        View "pg_catalog.pg_prepared_xacts"
+   Column    |           Type           | Modifiers 
+-------------+--------------------------+-----------
+ transaction | xid                      | 
+ gid         | text                     | 
+ prepared    | timestamp with time zone | 
+ owner       | name                     | 
+ database    | name                     | 
+View definition:
+ SELECT p.transaction, p.gid, p.prepared, u.rolname AS owner, d.datname AS database
+   FROM pg_prepared_xact() p(transaction, gid, prepared, ownerid, dbid)
+   LEFT JOIN pg_authid u ON p.ownerid = u.oid
+   LEFT JOIN pg_database d ON p.dbid = d.oid;
+
+       Table "pg_catalog.pg_proc"
+     Column      |   Type    | Modifiers 
+-----------------+-----------+-----------
+ proname         | name      | not null
+ pronamespace    | oid       | not null
+ proowner        | oid       | not null
+ prolang         | oid       | not null
+ procost         | real      | not null
+ prorows         | real      | not null
+ provariadic     | oid       | not null
+ proisagg        | boolean   | not null
+ proiswindow     | boolean   | not null
+ prosecdef       | boolean   | not null
+ proisstrict     | boolean   | not null
+ proretset       | boolean   | not null
+ provolatile     | "char"    | not null
+ pronargs        | smallint  | not null
+ pronargdefaults | smallint  | not null
+ prorettype      | oid       | not null
+ proargtypes     | oidvector | not null
+ proallargtypes  | oid[]     | 
+ proargmodes     | "char"[]  | 
+ proargnames     | text[]    | 
+ proargdefaults  | text      | 
+ prosrc          | text      | 
+ probin          | bytea     | 
+ proconfig       | text[]    | 
+ proacl          | aclitem[] | 
+Indexes:
+    "pg_proc_oid_index" UNIQUE, btree (oid)
+    "pg_proc_proname_args_nsp_index" UNIQUE, btree (proname, proargtypes, pronamespace)
+
+Index "pg_catalog.pg_proc_oid_index"
+ Column | Type 
+--------+------
+ oid    | oid
+unique, btree, for table "pg_catalog.pg_proc"
+
+Index "pg_catalog.pg_proc_proname_args_nsp_index"
+    Column    |   Type    
+--------------+-----------
+ proname      | cstring
+ proargtypes  | oidvector
+ pronamespace | oid
+unique, btree, for table "pg_catalog.pg_proc"
+
+   Table "pg_catalog.pg_rewrite"
+   Column   |   Type   | Modifiers 
+------------+----------+-----------
+ rulename   | name     | not null
+ ev_class   | oid      | not null
+ ev_attr    | smallint | not null
+ ev_type    | "char"   | not null
+ ev_enabled | "char"   | not null
+ is_instead | boolean  | not null
+ ev_qual    | text     | 
+ ev_action  | text     | 
+Indexes:
+    "pg_rewrite_oid_index" UNIQUE, btree (oid)
+    "pg_rewrite_rel_rulename_index" UNIQUE, btree (ev_class, rulename)
+
+Index "pg_catalog.pg_rewrite_oid_index"
+ Column | Type 
+--------+------
+ oid    | oid
+unique, btree, for table "pg_catalog.pg_rewrite"
+
+Index "pg_catalog.pg_rewrite_rel_rulename_index"
+  Column  |  Type   
+----------+---------
+ ev_class | oid
+ rulename | cstring
+unique, btree, for table "pg_catalog.pg_rewrite"
+
+              View "pg_catalog.pg_roles"
+    Column     |           Type           | Modifiers 
+---------------+--------------------------+-----------
+ rolname       | name                     | 
+ rolsuper      | boolean                  | 
+ rolinherit    | boolean                  | 
+ rolcreaterole | boolean                  | 
+ rolcreatedb   | boolean                  | 
+ rolcatupdate  | boolean                  | 
+ rolcanlogin   | boolean                  | 
+ rolconnlimit  | integer                  | 
+ rolpassword   | text                     | 
+ rolvaliduntil | timestamp with time zone | 
+ rolconfig     | text[]                   | 
+ oid           | oid                      | 
+View definition:
+ SELECT pg_authid.rolname, pg_authid.rolsuper, pg_authid.rolinherit, pg_authid.rolcreaterole, pg_authid.rolcreatedb, pg_authid.rolcatupdate, pg_authid.rolcanlogin, pg_authid.rolconnlimit, '********'::text AS rolpassword, pg_authid.rolvaliduntil, pg_authid.rolconfig, pg_authid.oid
+   FROM pg_authid;
+
+  View "pg_catalog.pg_rules"
+   Column   | Type | Modifiers 
+------------+------+-----------
+ schemaname | name | 
+ tablename  | name | 
+ rulename   | name | 
+ definition | text | 
+View definition:
+ SELECT n.nspname AS schemaname, c.relname AS tablename, r.rulename, pg_get_ruledef(r.oid) AS definition
+   FROM pg_rewrite r
+   JOIN pg_class c ON c.oid = r.ev_class
+   LEFT JOIN pg_namespace n ON n.oid = c.relnamespace
+  WHERE r.rulename <> '_RETURN'::name;
+
+  View "pg_catalog.pg_settings"
+   Column   |  Type   | Modifiers 
+------------+---------+-----------
+ name       | text    | 
+ setting    | text    | 
+ unit       | text    | 
+ category   | text    | 
+ short_desc | text    | 
+ extra_desc | text    | 
+ context    | text    | 
+ vartype    | text    | 
+ source     | text    | 
+ min_val    | text    | 
+ max_val    | text    | 
+ enumvals   | text[]  | 
+ boot_val   | text    | 
+ reset_val  | text    | 
+ sourcefile | text    | 
+ sourceline | integer | 
+View definition:
+ SELECT a.name, a.setting, a.unit, a.category, a.short_desc, a.extra_desc, a.context, a.vartype, a.source, a.min_val, a.max_val, a.enumvals, a.boot_val, a.reset_val, a.sourcefile, a.sourceline
+   FROM pg_show_all_settings() a(name, setting, unit, category, short_desc, extra_desc, context, vartype, source, min_val, max_val, enumvals, boot_val, reset_val, sourcefile, sourceline);
+Rules:
+ pg_settings_n AS
+    ON UPDATE TO pg_settings DO INSTEAD NOTHING
+ pg_settings_u AS
+    ON UPDATE TO pg_settings
+   WHERE new.name = old.name DO  SELECT set_config(old.name, new.setting, false) AS set_config
+
+    View "pg_catalog.pg_shadow"
+   Column    |  Type   | Modifiers 
+-------------+---------+-----------
+ usename     | name    | 
+ usesysid    | oid     | 
+ usecreatedb | boolean | 
+ usesuper    | boolean | 
+ usecatupd   | boolean | 
+ passwd      | text    | 
+ valuntil    | abstime | 
+ useconfig   | text[]  | 
+View definition:
+ SELECT pg_authid.rolname AS usename, pg_authid.oid AS usesysid, pg_authid.rolcreatedb AS usecreatedb, pg_authid.rolsuper AS usesuper, pg_authid.rolcatupdate AS usecatupd, pg_authid.rolpassword AS passwd, pg_authid.rolvaliduntil::abstime AS valuntil, pg_authid.rolconfig AS useconfig
+   FROM pg_authid
+  WHERE pg_authid.rolcanlogin;
+
+  Table "pg_catalog.pg_shdepend"
+   Column   |  Type   | Modifiers 
+------------+---------+-----------
+ dbid       | oid     | not null
+ classid    | oid     | not null
+ objid      | oid     | not null
+ objsubid   | integer | not null
+ refclassid | oid     | not null
+ refobjid   | oid     | not null
+ deptype    | "char"  | not null
+Indexes:
+    "pg_shdepend_depender_index" btree (dbid, classid, objid, objsubid), tablespace "pg_global"
+    "pg_shdepend_reference_index" btree (refclassid, refobjid), tablespace "pg_global"
+Tablespace: "pg_global"
+
+Index "pg_catalog.pg_shdepend_depender_index"
+  Column  |  Type   
+----------+---------
+ dbid     | oid
+ classid  | oid
+ objid    | oid
+ objsubid | integer
+btree, for table "pg_catalog.pg_shdepend"
+Tablespace: "pg_global"
+
+Index "pg_catalog.pg_shdepend_reference_index"
+   Column   | Type 
+------------+------
+ refclassid | oid
+ refobjid   | oid
+btree, for table "pg_catalog.pg_shdepend"
+Tablespace: "pg_global"
+
+Table "pg_catalog.pg_shdescription"
+   Column    | Type | Modifiers 
+-------------+------+-----------
+ objoid      | oid  | not null
+ classoid    | oid  | not null
+ description | text | 
+Indexes:
+    "pg_shdescription_o_c_index" UNIQUE, btree (objoid, classoid), tablespace "pg_global"
+Tablespace: "pg_global"
+
+Index "pg_catalog.pg_shdescription_o_c_index"
+  Column  | Type 
+----------+------
+ objoid   | oid
+ classoid | oid
+unique, btree, for table "pg_catalog.pg_shdescription"
+Tablespace: "pg_global"
+
+          View "pg_catalog.pg_stat_activity"
+    Column     |           Type           | Modifiers 
+---------------+--------------------------+-----------
+ datid         | oid                      | 
+ datname       | name                     | 
+ procpid       | integer                  | 
+ usesysid      | oid                      | 
+ usename       | name                     | 
+ current_query | text                     | 
+ waiting       | boolean                  | 
+ xact_start    | timestamp with time zone | 
+ query_start   | timestamp with time zone | 
+ backend_start | timestamp with time zone | 
+ client_addr   | inet                     | 
+ client_port   | integer                  | 
+View definition:
+ SELECT s.datid, d.datname, s.procpid, s.usesysid, u.rolname AS usename, s.current_query, s.waiting, s.xact_start, s.query_start, s.backend_start, s.client_addr, s.client_port
+   FROM pg_database d, pg_stat_get_activity(NULL::integer) s(datid, procpid, usesysid, current_query, waiting, xact_start, query_start, backend_start, client_addr, client_port), pg_authid u
+  WHERE s.datid = d.oid AND s.usesysid = u.oid;
+
+View "pg_catalog.pg_stat_all_indexes"
+    Column     |  Type  | Modifiers 
+---------------+--------+-----------
+ relid         | oid    | 
+ indexrelid    | oid    | 
+ schemaname    | name   | 
+ relname       | name   | 
+ indexrelname  | name   | 
+ idx_scan      | bigint | 
+ idx_tup_read  | bigint | 
+ idx_tup_fetch | bigint | 
+View definition:
+ SELECT c.oid AS relid, i.oid AS indexrelid, n.nspname AS schemaname, c.relname, i.relname AS indexrelname, pg_stat_get_numscans(i.oid) AS idx_scan, pg_stat_get_tuples_returned(i.oid) AS idx_tup_read, pg_stat_get_tuples_fetched(i.oid) AS idx_tup_fetch
+   FROM pg_class c
+   JOIN pg_index x ON c.oid = x.indrelid
+   JOIN pg_class i ON i.oid = x.indexrelid
+   LEFT JOIN pg_namespace n ON n.oid = c.relnamespace
+  WHERE c.relkind = ANY (ARRAY['r'::"char", 't'::"char"]);
+
+          View "pg_catalog.pg_stat_all_tables"
+      Column      |           Type           | Modifiers 
+------------------+--------------------------+-----------
+ relid            | oid                      | 
+ schemaname       | name                     | 
+ relname          | name                     | 
+ seq_scan         | bigint                   | 
+ seq_tup_read     | bigint                   | 
+ idx_scan         | bigint                   | 
+ idx_tup_fetch    | bigint                   | 
+ n_tup_ins        | bigint                   | 
+ n_tup_upd        | bigint                   | 
+ n_tup_del        | bigint                   | 
+ n_tup_hot_upd    | bigint                   | 
+ n_live_tup       | bigint                   | 
+ n_dead_tup       | bigint                   | 
+ last_vacuum      | timestamp with time zone | 
+ last_autovacuum  | timestamp with time zone | 
+ last_analyze     | timestamp with time zone | 
+ last_autoanalyze | timestamp with time zone | 
+View definition:
+ SELECT c.oid AS relid, n.nspname AS schemaname, c.relname, pg_stat_get_numscans(c.oid) AS seq_scan, pg_stat_get_tuples_returned(c.oid) AS seq_tup_read, sum(pg_stat_get_numscans(i.indexrelid))::bigint AS idx_scan, sum(pg_stat_get_tuples_fetched(i.indexrelid))::bigint + pg_stat_get_tuples_fetched(c.oid) AS idx_tup_fetch, pg_stat_get_tuples_inserted(c.oid) AS n_tup_ins, pg_stat_get_tuples_updated(c.oid) AS n_tup_upd, pg_stat_get_tuples_deleted(c.oid) AS n_tup_del, pg_stat_get_tuples_hot_updated(c.oid) AS n_tup_hot_upd, pg_stat_get_live_tuples(c.oid) AS n_live_tup, pg_stat_get_dead_tuples(c.oid) AS n_dead_tup, pg_stat_get_last_vacuum_time(c.oid) AS last_vacuum, pg_stat_get_last_autovacuum_time(c.oid) AS last_autovacuum, pg_stat_get_last_analyze_time(c.oid) AS last_analyze, pg_stat_get_last_autoanalyze_time(c.oid) AS last_autoanalyze
+   FROM pg_class c
+   LEFT JOIN pg_index i ON c.oid = i.indrelid
+   LEFT JOIN pg_namespace n ON n.oid = c.relnamespace
+  WHERE c.relkind = ANY (ARRAY['r'::"char", 't'::"char"])
+  GROUP BY c.oid, n.nspname, c.relname;
+
+   View "pg_catalog.pg_stat_bgwriter"
+       Column       |  Type  | Modifiers 
+--------------------+--------+-----------
+ checkpoints_timed  | bigint | 
+ checkpoints_req    | bigint | 
+ buffers_checkpoint | bigint | 
+ buffers_clean      | bigint | 
+ maxwritten_clean   | bigint | 
+ buffers_backend    | bigint | 
+ buffers_alloc      | bigint | 
+View definition:
+ SELECT pg_stat_get_bgwriter_timed_checkpoints() AS checkpoints_timed, pg_stat_get_bgwriter_requested_checkpoints() AS checkpoints_req, pg_stat_get_bgwriter_buf_written_checkpoints() AS buffers_checkpoint, pg_stat_get_bgwriter_buf_written_clean() AS buffers_clean, pg_stat_get_bgwriter_maxwritten_clean() AS maxwritten_clean, pg_stat_get_buf_written_backend() AS buffers_backend, pg_stat_get_buf_alloc() AS buffers_alloc;
+
+ View "pg_catalog.pg_stat_database"
+    Column     |  Type   | Modifiers 
+---------------+---------+-----------
+ datid         | oid     | 
+ datname       | name    | 
+ numbackends   | integer | 
+ xact_commit   | bigint  | 
+ xact_rollback | bigint  | 
+ blks_read     | bigint  | 
+ blks_hit      | bigint  | 
+ tup_returned  | bigint  | 
+ tup_fetched   | bigint  | 
+ tup_inserted  | bigint  | 
+ tup_updated   | bigint  | 
+ tup_deleted   | bigint  | 
+View definition:
+ SELECT d.oid AS datid, d.datname, pg_stat_get_db_numbackends(d.oid) AS numbackends, pg_stat_get_db_xact_commit(d.oid) AS xact_commit, pg_stat_get_db_xact_rollback(d.oid) AS xact_rollback, pg_stat_get_db_blocks_fetched(d.oid) - pg_stat_get_db_blocks_hit(d.oid) AS blks_read, pg_stat_get_db_blocks_hit(d.oid) AS blks_hit, pg_stat_get_db_tuples_returned(d.oid) AS tup_returned, pg_stat_get_db_tuples_fetched(d.oid) AS tup_fetched, pg_stat_get_db_tuples_inserted(d.oid) AS tup_inserted, pg_stat_get_db_tuples_updated(d.oid) AS tup_updated, pg_stat_get_db_tuples_deleted(d.oid) AS tup_deleted
+   FROM pg_database d;
+
+View "pg_catalog.pg_stat_sys_indexes"
+    Column     |  Type  | Modifiers 
+---------------+--------+-----------
+ relid         | oid    | 
+ indexrelid    | oid    | 
+ schemaname    | name   | 
+ relname       | name   | 
+ indexrelname  | name   | 
+ idx_scan      | bigint | 
+ idx_tup_read  | bigint | 
+ idx_tup_fetch | bigint | 
+View definition:
+ SELECT pg_stat_all_indexes.relid, pg_stat_all_indexes.indexrelid, pg_stat_all_indexes.schemaname, pg_stat_all_indexes.relname, pg_stat_all_indexes.indexrelname, pg_stat_all_indexes.idx_scan, pg_stat_all_indexes.idx_tup_read, pg_stat_all_indexes.idx_tup_fetch
+   FROM pg_stat_all_indexes
+  WHERE (pg_stat_all_indexes.schemaname = ANY (ARRAY['pg_catalog'::name, 'information_schema'::name])) OR pg_stat_all_indexes.schemaname ~ '^pg_toast'::text;
+
+          View "pg_catalog.pg_stat_sys_tables"
+      Column      |           Type           | Modifiers 
+------------------+--------------------------+-----------
+ relid            | oid                      | 
+ schemaname       | name                     | 
+ relname          | name                     | 
+ seq_scan         | bigint                   | 
+ seq_tup_read     | bigint                   | 
+ idx_scan         | bigint                   | 
+ idx_tup_fetch    | bigint                   | 
+ n_tup_ins        | bigint                   | 
+ n_tup_upd        | bigint                   | 
+ n_tup_del        | bigint                   | 
+ n_tup_hot_upd    | bigint                   | 
+ n_live_tup       | bigint                   | 
+ n_dead_tup       | bigint                   | 
+ last_vacuum      | timestamp with time zone | 
+ last_autovacuum  | timestamp with time zone | 
+ last_analyze     | timestamp with time zone | 
+ last_autoanalyze | timestamp with time zone | 
+View definition:
+ SELECT pg_stat_all_tables.relid, pg_stat_all_tables.schemaname, pg_stat_all_tables.relname, pg_stat_all_tables.seq_scan, pg_stat_all_tables.seq_tup_read, pg_stat_all_tables.idx_scan, pg_stat_all_tables.idx_tup_fetch, pg_stat_all_tables.n_tup_ins, pg_stat_all_tables.n_tup_upd, pg_stat_all_tables.n_tup_del, pg_stat_all_tables.n_tup_hot_upd, pg_stat_all_tables.n_live_tup, pg_stat_all_tables.n_dead_tup, pg_stat_all_tables.last_vacuum, pg_stat_all_tables.last_autovacuum, pg_stat_all_tables.last_analyze, pg_stat_all_tables.last_autoanalyze
+   FROM pg_stat_all_tables
+  WHERE (pg_stat_all_tables.schemaname = ANY (ARRAY['pg_catalog'::name, 'information_schema'::name])) OR pg_stat_all_tables.schemaname ~ '^pg_toast'::text;
+
+View "pg_catalog.pg_stat_user_functions"
+   Column   |  Type  | Modifiers 
+------------+--------+-----------
+ funcid     | oid    | 
+ schemaname | name   | 
+ funcname   | name   | 
+ calls      | bigint | 
+ total_time | bigint | 
+ self_time  | bigint | 
+View definition:
+ SELECT p.oid AS funcid, n.nspname AS schemaname, p.proname AS funcname, pg_stat_get_function_calls(p.oid) AS calls, pg_stat_get_function_time(p.oid) / 1000 AS total_time, pg_stat_get_function_self_time(p.oid) / 1000 AS self_time
+   FROM pg_proc p
+   LEFT JOIN pg_namespace n ON n.oid = p.pronamespace
+  WHERE p.prolang <> 12::oid AND pg_stat_get_function_calls(p.oid) IS NOT NULL;
+
+View "pg_catalog.pg_stat_user_indexes"
+    Column     |  Type  | Modifiers 
+---------------+--------+-----------
+ relid         | oid    | 
+ indexrelid    | oid    | 
+ schemaname    | name   | 
+ relname       | name   | 
+ indexrelname  | name   | 
+ idx_scan      | bigint | 
+ idx_tup_read  | bigint | 
+ idx_tup_fetch | bigint | 
+View definition:
+ SELECT pg_stat_all_indexes.relid, pg_stat_all_indexes.indexrelid, pg_stat_all_indexes.schemaname, pg_stat_all_indexes.relname, pg_stat_all_indexes.indexrelname, pg_stat_all_indexes.idx_scan, pg_stat_all_indexes.idx_tup_read, pg_stat_all_indexes.idx_tup_fetch
+   FROM pg_stat_all_indexes
+  WHERE (pg_stat_all_indexes.schemaname <> ALL (ARRAY['pg_catalog'::name, 'information_schema'::name])) AND pg_stat_all_indexes.schemaname !~ '^pg_toast'::text;
+
+          View "pg_catalog.pg_stat_user_tables"
+      Column      |           Type           | Modifiers 
+------------------+--------------------------+-----------
+ relid            | oid                      | 
+ schemaname       | name                     | 
+ relname          | name                     | 
+ seq_scan         | bigint                   | 
+ seq_tup_read     | bigint                   | 
+ idx_scan         | bigint                   | 
+ idx_tup_fetch    | bigint                   | 
+ n_tup_ins        | bigint                   | 
+ n_tup_upd        | bigint                   | 
+ n_tup_del        | bigint                   | 
+ n_tup_hot_upd    | bigint                   | 
+ n_live_tup       | bigint                   | 
+ n_dead_tup       | bigint                   | 
+ last_vacuum      | timestamp with time zone | 
+ last_autovacuum  | timestamp with time zone | 
+ last_analyze     | timestamp with time zone | 
+ last_autoanalyze | timestamp with time zone | 
+View definition:
+ SELECT pg_stat_all_tables.relid, pg_stat_all_tables.schemaname, pg_stat_all_tables.relname, pg_stat_all_tables.seq_scan, pg_stat_all_tables.seq_tup_read, pg_stat_all_tables.idx_scan, pg_stat_all_tables.idx_tup_fetch, pg_stat_all_tables.n_tup_ins, pg_stat_all_tables.n_tup_upd, pg_stat_all_tables.n_tup_del, pg_stat_all_tables.n_tup_hot_upd, pg_stat_all_tables.n_live_tup, pg_stat_all_tables.n_dead_tup, pg_stat_all_tables.last_vacuum, pg_stat_all_tables.last_autovacuum, pg_stat_all_tables.last_analyze, pg_stat_all_tables.last_autoanalyze
+   FROM pg_stat_all_tables
+  WHERE (pg_stat_all_tables.schemaname <> ALL (ARRAY['pg_catalog'::name, 'information_schema'::name])) AND pg_stat_all_tables.schemaname !~ '^pg_toast'::text;
+
+View "pg_catalog.pg_statio_all_indexes"
+    Column     |  Type  | Modifiers 
+---------------+--------+-----------
+ relid         | oid    | 
+ indexrelid    | oid    | 
+ schemaname    | name   | 
+ relname       | name   | 
+ indexrelname  | name   | 
+ idx_blks_read | bigint | 
+ idx_blks_hit  | bigint | 
+View definition:
+ SELECT c.oid AS relid, i.oid AS indexrelid, n.nspname AS schemaname, c.relname, i.relname AS indexrelname, pg_stat_get_blocks_fetched(i.oid) - pg_stat_get_blocks_hit(i.oid) AS idx_blks_read, pg_stat_get_blocks_hit(i.oid) AS idx_blks_hit
+   FROM pg_class c
+   JOIN pg_index x ON c.oid = x.indrelid
+   JOIN pg_class i ON i.oid = x.indexrelid
+   LEFT JOIN pg_namespace n ON n.oid = c.relnamespace
+  WHERE c.relkind = ANY (ARRAY['r'::"char", 't'::"char"]);
+
+View "pg_catalog.pg_statio_all_sequences"
+   Column   |  Type  | Modifiers 
+------------+--------+-----------
+ relid      | oid    | 
+ schemaname | name   | 
+ relname    | name   | 
+ blks_read  | bigint | 
+ blks_hit   | bigint | 
+View definition:
+ SELECT c.oid AS relid, n.nspname AS schemaname, c.relname, pg_stat_get_blocks_fetched(c.oid) - pg_stat_get_blocks_hit(c.oid) AS blks_read, pg_stat_get_blocks_hit(c.oid) AS blks_hit
+   FROM pg_class c
+   LEFT JOIN pg_namespace n ON n.oid = c.relnamespace
+  WHERE c.relkind = 'S'::"char";
+
+View "pg_catalog.pg_statio_all_tables"
+     Column      |  Type  | Modifiers 
+-----------------+--------+-----------
+ relid           | oid    | 
+ schemaname      | name   | 
+ relname         | name   | 
+ heap_blks_read  | bigint | 
+ heap_blks_hit   | bigint | 
+ idx_blks_read   | bigint | 
+ idx_blks_hit    | bigint | 
+ toast_blks_read | bigint | 
+ toast_blks_hit  | bigint | 
+ tidx_blks_read  | bigint | 
+ tidx_blks_hit   | bigint | 
+View definition:
+ SELECT c.oid AS relid, n.nspname AS schemaname, c.relname, pg_stat_get_blocks_fetched(c.oid) - pg_stat_get_blocks_hit(c.oid) AS heap_blks_read, pg_stat_get_blocks_hit(c.oid) AS heap_blks_hit, sum(pg_stat_get_blocks_fetched(i.indexrelid) - pg_stat_get_blocks_hit(i.indexrelid))::bigint AS idx_blks_read, sum(pg_stat_get_blocks_hit(i.indexrelid))::bigint AS idx_blks_hit, pg_stat_get_blocks_fetched(t.oid) - pg_stat_get_blocks_hit(t.oid) AS toast_blks_read, pg_stat_get_blocks_hit(t.oid) AS toast_blks_hit, pg_stat_get_blocks_fetched(x.oid) - pg_stat_get_blocks_hit(x.oid) AS tidx_blks_read, pg_stat_get_blocks_hit(x.oid) AS tidx_blks_hit
+   FROM pg_class c
+   LEFT JOIN pg_index i ON c.oid = i.indrelid
+   LEFT JOIN pg_class t ON c.reltoastrelid = t.oid
+   LEFT JOIN pg_class x ON t.reltoastidxid = x.oid
+   LEFT JOIN pg_namespace n ON n.oid = c.relnamespace
+  WHERE c.relkind = ANY (ARRAY['r'::"char", 't'::"char"])
+  GROUP BY c.oid, n.nspname, c.relname, t.oid, x.oid;
+
+View "pg_catalog.pg_statio_sys_indexes"
+    Column     |  Type  | Modifiers 
+---------------+--------+-----------
+ relid         | oid    | 
+ indexrelid    | oid    | 
+ schemaname    | name   | 
+ relname       | name   | 
+ indexrelname  | name   | 
+ idx_blks_read | bigint | 
+ idx_blks_hit  | bigint | 
+View definition:
+ SELECT pg_statio_all_indexes.relid, pg_statio_all_indexes.indexrelid, pg_statio_all_indexes.schemaname, pg_statio_all_indexes.relname, pg_statio_all_indexes.indexrelname, pg_statio_all_indexes.idx_blks_read, pg_statio_all_indexes.idx_blks_hit
+   FROM pg_statio_all_indexes
+  WHERE (pg_statio_all_indexes.schemaname = ANY (ARRAY['pg_catalog'::name, 'information_schema'::name])) OR pg_statio_all_indexes.schemaname ~ '^pg_toast'::text;
+
+View "pg_catalog.pg_statio_sys_sequences"
+   Column   |  Type  | Modifiers 
+------------+--------+-----------
+ relid      | oid    | 
+ schemaname | name   | 
+ relname    | name   | 
+ blks_read  | bigint | 
+ blks_hit   | bigint | 
+View definition:
+ SELECT pg_statio_all_sequences.relid, pg_statio_all_sequences.schemaname, pg_statio_all_sequences.relname, pg_statio_all_sequences.blks_read, pg_statio_all_sequences.blks_hit
+   FROM pg_statio_all_sequences
+  WHERE (pg_statio_all_sequences.schemaname = ANY (ARRAY['pg_catalog'::name, 'information_schema'::name])) OR pg_statio_all_sequences.schemaname ~ '^pg_toast'::text;
+
+View "pg_catalog.pg_statio_sys_tables"
+     Column      |  Type  | Modifiers 
+-----------------+--------+-----------
+ relid           | oid    | 
+ schemaname      | name   | 
+ relname         | name   | 
+ heap_blks_read  | bigint | 
+ heap_blks_hit   | bigint | 
+ idx_blks_read   | bigint | 
+ idx_blks_hit    | bigint | 
+ toast_blks_read | bigint | 
+ toast_blks_hit  | bigint | 
+ tidx_blks_read  | bigint | 
+ tidx_blks_hit   | bigint | 
+View definition:
+ SELECT pg_statio_all_tables.relid, pg_statio_all_tables.schemaname, pg_statio_all_tables.relname, pg_statio_all_tables.heap_blks_read, pg_statio_all_tables.heap_blks_hit, pg_statio_all_tables.idx_blks_read, pg_statio_all_tables.idx_blks_hit, pg_statio_all_tables.toast_blks_read, pg_statio_all_tables.toast_blks_hit, pg_statio_all_tables.tidx_blks_read, pg_statio_all_tables.tidx_blks_hit
+   FROM pg_statio_all_tables
+  WHERE (pg_statio_all_tables.schemaname = ANY (ARRAY['pg_catalog'::name, 'information_schema'::name])) OR pg_statio_all_tables.schemaname ~ '^pg_toast'::text;
+
+View "pg_catalog.pg_statio_user_indexes"
+    Column     |  Type  | Modifiers 
+---------------+--------+-----------
+ relid         | oid    | 
+ indexrelid    | oid    | 
+ schemaname    | name   | 
+ relname       | name   | 
+ indexrelname  | name   | 
+ idx_blks_read | bigint | 
+ idx_blks_hit  | bigint | 
+View definition:
+ SELECT pg_statio_all_indexes.relid, pg_statio_all_indexes.indexrelid, pg_statio_all_indexes.schemaname, pg_statio_all_indexes.relname, pg_statio_all_indexes.indexrelname, pg_statio_all_indexes.idx_blks_read, pg_statio_all_indexes.idx_blks_hit
+   FROM pg_statio_all_indexes
+  WHERE (pg_statio_all_indexes.schemaname <> ALL (ARRAY['pg_catalog'::name, 'information_schema'::name])) AND pg_statio_all_indexes.schemaname !~ '^pg_toast'::text;
+
+View "pg_catalog.pg_statio_user_sequences"
+   Column   |  Type  | Modifiers 
+------------+--------+-----------
+ relid      | oid    | 
+ schemaname | name   | 
+ relname    | name   | 
+ blks_read  | bigint | 
+ blks_hit   | bigint | 
+View definition:
+ SELECT pg_statio_all_sequences.relid, pg_statio_all_sequences.schemaname, pg_statio_all_sequences.relname, pg_statio_all_sequences.blks_read, pg_statio_all_sequences.blks_hit
+   FROM pg_statio_all_sequences
+  WHERE (pg_statio_all_sequences.schemaname <> ALL (ARRAY['pg_catalog'::name, 'information_schema'::name])) AND pg_statio_all_sequences.schemaname !~ '^pg_toast'::text;
+
+View "pg_catalog.pg_statio_user_tables"
+     Column      |  Type  | Modifiers 
+-----------------+--------+-----------
+ relid           | oid    | 
+ schemaname      | name   | 
+ relname         | name   | 
+ heap_blks_read  | bigint | 
+ heap_blks_hit   | bigint | 
+ idx_blks_read   | bigint | 
+ idx_blks_hit    | bigint | 
+ toast_blks_read | bigint | 
+ toast_blks_hit  | bigint | 
+ tidx_blks_read  | bigint | 
+ tidx_blks_hit   | bigint | 
+View definition:
+ SELECT pg_statio_all_tables.relid, pg_statio_all_tables.schemaname, pg_statio_all_tables.relname, pg_statio_all_tables.heap_blks_read, pg_statio_all_tables.heap_blks_hit, pg_statio_all_tables.idx_blks_read, pg_statio_all_tables.idx_blks_hit, pg_statio_all_tables.toast_blks_read, pg_statio_all_tables.toast_blks_hit, pg_statio_all_tables.tidx_blks_read, pg_statio_all_tables.tidx_blks_hit
+   FROM pg_statio_all_tables
+  WHERE (pg_statio_all_tables.schemaname <> ALL (ARRAY['pg_catalog'::name, 'information_schema'::name])) AND pg_statio_all_tables.schemaname !~ '^pg_toast'::text;
+
+  Table "pg_catalog.pg_statistic"
+   Column    |   Type   | Modifiers 
+-------------+----------+-----------
+ starelid    | oid      | not null
+ staattnum   | smallint | not null
+ stanullfrac | real     | not null
+ stawidth    | integer  | not null
+ stadistinct | real     | not null
+ stakind1    | smallint | not null
+ stakind2    | smallint | not null
+ stakind3    | smallint | not null
+ stakind4    | smallint | not null
+ staop1      | oid      | not null
+ staop2      | oid      | not null
+ staop3      | oid      | not null
+ staop4      | oid      | not null
+ stanumbers1 | real[]   | 
+ stanumbers2 | real[]   | 
+ stanumbers3 | real[]   | 
+ stanumbers4 | real[]   | 
+ stavalues1  | anyarray | 
+ stavalues2  | anyarray | 
+ stavalues3  | anyarray | 
+ stavalues4  | anyarray | 
+Indexes:
+    "pg_statistic_relid_att_index" UNIQUE, btree (starelid, staattnum)
+
+Index "pg_catalog.pg_statistic_relid_att_index"
+  Column   |   Type   
+-----------+----------
+ starelid  | oid
+ staattnum | smallint
+unique, btree, for table "pg_catalog.pg_statistic"
+
+        View "pg_catalog.pg_stats"
+      Column       |   Type   | Modifiers 
+-------------------+----------+-----------
+ schemaname        | name     | 
+ tablename         | name     | 
+ attname           | name     | 
+ null_frac         | real     | 
+ avg_width         | integer  | 
+ n_distinct        | real     | 
+ most_common_vals  | anyarray | 
+ most_common_freqs | real[]   | 
+ histogram_bounds  | anyarray | 
+ correlation       | real     | 
+View definition:
+ SELECT n.nspname AS schemaname, c.relname AS tablename, a.attname, s.stanullfrac AS null_frac, s.stawidth AS avg_width, s.stadistinct AS n_distinct, 
+        CASE
+            WHEN s.stakind1 = ANY (ARRAY[1, 4]) THEN s.stavalues1
+            WHEN s.stakind2 = ANY (ARRAY[1, 4]) THEN s.stavalues2
+            WHEN s.stakind3 = ANY (ARRAY[1, 4]) THEN s.stavalues3
+            WHEN s.stakind4 = ANY (ARRAY[1, 4]) THEN s.stavalues4
+            ELSE NULL::anyarray
+        END AS most_common_vals, 
+        CASE
+            WHEN s.stakind1 = ANY (ARRAY[1, 4]) THEN s.stanumbers1
+            WHEN s.stakind2 = ANY (ARRAY[1, 4]) THEN s.stanumbers2
+            WHEN s.stakind3 = ANY (ARRAY[1, 4]) THEN s.stanumbers3
+            WHEN s.stakind4 = ANY (ARRAY[1, 4]) THEN s.stanumbers4
+            ELSE NULL::real[]
+        END AS most_common_freqs, 
+        CASE
+            WHEN s.stakind1 = 2 THEN s.stavalues1
+            WHEN s.stakind2 = 2 THEN s.stavalues2
+            WHEN s.stakind3 = 2 THEN s.stavalues3
+            WHEN s.stakind4 = 2 THEN s.stavalues4
+            ELSE NULL::anyarray
+        END AS histogram_bounds, 
+        CASE
+            WHEN s.stakind1 = 3 THEN s.stanumbers1[1]
+            WHEN s.stakind2 = 3 THEN s.stanumbers2[1]
+            WHEN s.stakind3 = 3 THEN s.stanumbers3[1]
+            WHEN s.stakind4 = 3 THEN s.stanumbers4[1]
+            ELSE NULL::real
+        END AS correlation
+   FROM pg_statistic s
+   JOIN pg_class c ON c.oid = s.starelid
+   JOIN pg_attribute a ON c.oid = a.attrelid AND a.attnum = s.staattnum
+   LEFT JOIN pg_namespace n ON n.oid = c.relnamespace
+  WHERE NOT a.attisdropped AND has_column_privilege(c.oid, a.attnum, 'select'::text);
+
+    View "pg_catalog.pg_tables"
+   Column    |  Type   | Modifiers 
+-------------+---------+-----------
+ schemaname  | name    | 
+ tablename   | name    | 
+ tableowner  | name    | 
+ tablespace  | name    | 
+ hasindexes  | boolean | 
+ hasrules    | boolean | 
+ hastriggers | boolean | 
+View definition:
+ SELECT n.nspname AS schemaname, c.relname AS tablename, pg_get_userbyid(c.relowner) AS tableowner, t.spcname AS tablespace, c.relhasindex AS hasindexes, c.relhasrules AS hasrules, c.relhastriggers AS hastriggers
+   FROM pg_class c
+   LEFT JOIN pg_namespace n ON n.oid = c.relnamespace
+   LEFT JOIN pg_tablespace t ON t.oid = c.reltablespace
+  WHERE c.relkind = 'r'::"char";
+
+  Table "pg_catalog.pg_tablespace"
+   Column    |   Type    | Modifiers 
+-------------+-----------+-----------
+ spcname     | name      | not null
+ spcowner    | oid       | not null
+ spclocation | text      | 
+ spcacl      | aclitem[] | 
+Indexes:
+    "pg_tablespace_oid_index" UNIQUE, btree (oid), tablespace "pg_global"
+    "pg_tablespace_spcname_index" UNIQUE, btree (spcname), tablespace "pg_global"
+Tablespace: "pg_global"
+
+Index "pg_catalog.pg_tablespace_oid_index"
+ Column | Type 
+--------+------
+ oid    | oid
+unique, btree, for table "pg_catalog.pg_tablespace"
+Tablespace: "pg_global"
+
+Index "pg_catalog.pg_tablespace_spcname_index"
+ Column  |  Type   
+---------+---------
+ spcname | cstring
+unique, btree, for table "pg_catalog.pg_tablespace"
+Tablespace: "pg_global"
+
+View "pg_catalog.pg_timezone_abbrevs"
+   Column   |   Type   | Modifiers 
+------------+----------+-----------
+ abbrev     | text     | 
+ utc_offset | interval | 
+ is_dst     | boolean  | 
+View definition:
+ SELECT pg_timezone_abbrevs.abbrev, pg_timezone_abbrevs.utc_offset, pg_timezone_abbrevs.is_dst
+   FROM pg_timezone_abbrevs() pg_timezone_abbrevs(abbrev, utc_offset, is_dst);
+
+View "pg_catalog.pg_timezone_names"
+   Column   |   Type   | Modifiers 
+------------+----------+-----------
+ name       | text     | 
+ abbrev     | text     | 
+ utc_offset | interval | 
+ is_dst     | boolean  | 
+View definition:
+ SELECT pg_timezone_names.name, pg_timezone_names.abbrev, pg_timezone_names.utc_offset, pg_timezone_names.is_dst
+   FROM pg_timezone_names() pg_timezone_names(name, abbrev, utc_offset, is_dst);
+
+      Table "pg_catalog.pg_trigger"
+     Column     |    Type    | Modifiers 
+----------------+------------+-----------
+ tgrelid        | oid        | not null
+ tgname         | name       | not null
+ tgfoid         | oid        | not null
+ tgtype         | smallint   | not null
+ tgenabled      | "char"     | not null
+ tgisconstraint | boolean    | not null
+ tgconstrname   | name       | not null
+ tgconstrrelid  | oid        | not null
+ tgconstraint   | oid        | not null
+ tgdeferrable   | boolean    | not null
+ tginitdeferred | boolean    | not null
+ tgnargs        | smallint   | not null
+ tgattr         | int2vector | not null
+ tgargs         | bytea      | 
+Indexes:
+    "pg_trigger_oid_index" UNIQUE, btree (oid)
+    "pg_trigger_tgrelid_tgname_index" UNIQUE, btree (tgrelid, tgname)
+    "pg_trigger_tgconstrname_index" btree (tgconstrname)
+
+Index "pg_catalog.pg_trigger_oid_index"
+ Column | Type 
+--------+------
+ oid    | oid
+unique, btree, for table "pg_catalog.pg_trigger"
+
+Index "pg_catalog.pg_trigger_tgconstrname_index"
+    Column    |  Type   
+--------------+---------
+ tgconstrname | cstring
+btree, for table "pg_catalog.pg_trigger"
+
+Index "pg_catalog.pg_trigger_tgrelid_tgname_index"
+ Column  |  Type   
+---------+---------
+ tgrelid | oid
+ tgname  | cstring
+unique, btree, for table "pg_catalog.pg_trigger"
+
+ Table "pg_catalog.pg_ts_config"
+    Column    | Type | Modifiers 
+--------------+------+-----------
+ cfgname      | name | not null
+ cfgnamespace | oid  | not null
+ cfgowner     | oid  | not null
+ cfgparser    | oid  | not null
+Indexes:
+    "pg_ts_config_cfgname_index" UNIQUE, btree (cfgname, cfgnamespace)
+    "pg_ts_config_oid_index" UNIQUE, btree (oid)
+
+Index "pg_catalog.pg_ts_config_cfgname_index"
+    Column    |  Type   
+--------------+---------
+ cfgname      | cstring
+ cfgnamespace | oid
+unique, btree, for table "pg_catalog.pg_ts_config"
+
+Table "pg_catalog.pg_ts_config_map"
+    Column    |  Type   | Modifiers 
+--------------+---------+-----------
+ mapcfg       | oid     | not null
+ maptokentype | integer | not null
+ mapseqno     | integer | not null
+ mapdict      | oid     | not null
+Indexes:
+    "pg_ts_config_map_index" UNIQUE, btree (mapcfg, maptokentype, mapseqno)
+
+Index "pg_catalog.pg_ts_config_map_index"
+    Column    |  Type   
+--------------+---------
+ mapcfg       | oid
+ maptokentype | integer
+ mapseqno     | integer
+unique, btree, for table "pg_catalog.pg_ts_config_map"
+
+Index "pg_catalog.pg_ts_config_oid_index"
+ Column | Type 
+--------+------
+ oid    | oid
+unique, btree, for table "pg_catalog.pg_ts_config"
+
+   Table "pg_catalog.pg_ts_dict"
+     Column     | Type | Modifiers 
+----------------+------+-----------
+ dictname       | name | not null
+ dictnamespace  | oid  | not null
+ dictowner      | oid  | not null
+ dicttemplate   | oid  | not null
+ dictinitoption | text | 
+Indexes:
+    "pg_ts_dict_dictname_index" UNIQUE, btree (dictname, dictnamespace)
+    "pg_ts_dict_oid_index" UNIQUE, btree (oid)
+
+Index "pg_catalog.pg_ts_dict_dictname_index"
+    Column     |  Type   
+---------------+---------
+ dictname      | cstring
+ dictnamespace | oid
+unique, btree, for table "pg_catalog.pg_ts_dict"
+
+Index "pg_catalog.pg_ts_dict_oid_index"
+ Column | Type 
+--------+------
+ oid    | oid
+unique, btree, for table "pg_catalog.pg_ts_dict"
+
+  Table "pg_catalog.pg_ts_parser"
+    Column    |  Type   | Modifiers 
+--------------+---------+-----------
+ prsname      | name    | not null
+ prsnamespace | oid     | not null
+ prsstart     | regproc | not null
+ prstoken     | regproc | not null
+ prsend       | regproc | not null
+ prsheadline  | regproc | not null
+ prslextype   | regproc | not null
+Indexes:
+    "pg_ts_parser_oid_index" UNIQUE, btree (oid)
+    "pg_ts_parser_prsname_index" UNIQUE, btree (prsname, prsnamespace)
+
+Index "pg_catalog.pg_ts_parser_oid_index"
+ Column | Type 
+--------+------
+ oid    | oid
+unique, btree, for table "pg_catalog.pg_ts_parser"
+
+Index "pg_catalog.pg_ts_parser_prsname_index"
+    Column    |  Type   
+--------------+---------
+ prsname      | cstring
+ prsnamespace | oid
+unique, btree, for table "pg_catalog.pg_ts_parser"
+
+  Table "pg_catalog.pg_ts_template"
+    Column     |  Type   | Modifiers 
+---------------+---------+-----------
+ tmplname      | name    | not null
+ tmplnamespace | oid     | not null
+ tmplinit      | regproc | not null
+ tmpllexize    | regproc | not null
+Indexes:
+    "pg_ts_template_oid_index" UNIQUE, btree (oid)
+    "pg_ts_template_tmplname_index" UNIQUE, btree (tmplname, tmplnamespace)
+
+Index "pg_catalog.pg_ts_template_oid_index"
+ Column | Type 
+--------+------
+ oid    | oid
+unique, btree, for table "pg_catalog.pg_ts_template"
+
+Index "pg_catalog.pg_ts_template_tmplname_index"
+    Column     |  Type   
+---------------+---------
+ tmplname      | cstring
+ tmplnamespace | oid
+unique, btree, for table "pg_catalog.pg_ts_template"
+
+      Table "pg_catalog.pg_type"
+     Column     |   Type   | Modifiers 
+----------------+----------+-----------
+ typname        | name     | not null
+ typnamespace   | oid      | not null
+ typowner       | oid      | not null
+ typlen         | smallint | not null
+ typbyval       | boolean  | not null
+ typtype        | "char"   | not null
+ typcategory    | "char"   | not null
+ typispreferred | boolean  | not null
+ typisdefined   | boolean  | not null
+ typdelim       | "char"   | not null
+ typrelid       | oid      | not null
+ typelem        | oid      | not null
+ typarray       | oid      | not null
+ typinput       | regproc  | not null
+ typoutput      | regproc  | not null
+ typreceive     | regproc  | not null
+ typsend        | regproc  | not null
+ typmodin       | regproc  | not null
+ typmodout      | regproc  | not null
+ typanalyze     | regproc  | not null
+ typalign       | "char"   | not null
+ typstorage     | "char"   | not null
+ typnotnull     | boolean  | not null
+ typbasetype    | oid      | not null
+ typtypmod      | integer  | not null
+ typndims       | integer  | not null
+ typdefaultbin  | text     | 
+ typdefault     | text     | 
+Indexes:
+    "pg_type_oid_index" UNIQUE, btree (oid)
+    "pg_type_typname_nsp_index" UNIQUE, btree (typname, typnamespace)
+
+Index "pg_catalog.pg_type_oid_index"
+ Column | Type 
+--------+------
+ oid    | oid
+unique, btree, for table "pg_catalog.pg_type"
+
+Index "pg_catalog.pg_type_typname_nsp_index"
+    Column    |  Type   
+--------------+---------
+ typname      | cstring
+ typnamespace | oid
+unique, btree, for table "pg_catalog.pg_type"
+
+     View "pg_catalog.pg_user"
+   Column    |  Type   | Modifiers 
+-------------+---------+-----------
+ usename     | name    | 
+ usesysid    | oid     | 
+ usecreatedb | boolean | 
+ usesuper    | boolean | 
+ usecatupd   | boolean | 
+ passwd      | text    | 
+ valuntil    | abstime | 
+ useconfig   | text[]  | 
+View definition:
+ SELECT pg_shadow.usename, pg_shadow.usesysid, pg_shadow.usecreatedb, pg_shadow.usesuper, pg_shadow.usecatupd, '********'::text AS passwd, pg_shadow.valuntil, pg_shadow.useconfig
+   FROM pg_shadow;
+
+Table "pg_catalog.pg_user_mapping"
+  Column   |  Type  | Modifiers 
+-----------+--------+-----------
+ umuser    | oid    | not null
+ umserver  | oid    | not null
+ umoptions | text[] | 
+Indexes:
+    "pg_user_mapping_oid_index" UNIQUE, btree (oid)
+    "pg_user_mapping_user_server_index" UNIQUE, btree (umuser, umserver)
+
+Index "pg_catalog.pg_user_mapping_oid_index"
+ Column | Type 
+--------+------
+ oid    | oid
+unique, btree, for table "pg_catalog.pg_user_mapping"
+
+Index "pg_catalog.pg_user_mapping_user_server_index"
+  Column  | Type 
+----------+------
+ umuser   | oid
+ umserver | oid
+unique, btree, for table "pg_catalog.pg_user_mapping"
+
+View "pg_catalog.pg_user_mappings"
+  Column   |  Type  | Modifiers 
+-----------+--------+-----------
+ umid      | oid    | 
+ srvid     | oid    | 
+ srvname   | name   | 
+ umuser    | oid    | 
+ usename   | name   | 
+ umoptions | text[] | 
+View definition:
+ SELECT u.oid AS umid, s.oid AS srvid, s.srvname, u.umuser, 
+        CASE
+            WHEN u.umuser = 0::oid THEN 'public'::name
+            ELSE a.rolname
+        END AS usename, 
+        CASE
+            WHEN pg_has_role(s.srvowner, 'USAGE'::text) OR has_server_privilege(s.oid, 'USAGE'::text) THEN u.umoptions
+            ELSE NULL::text[]
+        END AS umoptions
+   FROM pg_user_mapping u
+   LEFT JOIN pg_authid a ON a.oid = u.umuser
+   JOIN pg_foreign_server s ON u.umserver = s.oid;
+
+  View "pg_catalog.pg_views"
+   Column   | Type | Modifiers 
+------------+------+-----------
+ schemaname | name | 
+ viewname   | name | 
+ viewowner  | name | 
+ definition | text | 
+View definition:
+ SELECT n.nspname AS schemaname, c.relname AS viewname, pg_get_userbyid(c.relowner) AS viewowner, pg_get_viewdef(c.oid) AS definition
+   FROM pg_class c
+   LEFT JOIN pg_namespace n ON n.oid = c.relnamespace
+  WHERE c.relkind = 'v'::"char";
+
