@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="pyramid web application">
-    <meta name="author" content="Pylons Project">
+    <meta name="author" content="Pharao Project">
     <link rel="shortcut icon" href="${request.static_url('pharao:static/images/pyramid-16x16.png')}">
 
     <title>Pharao</title>
@@ -24,8 +24,9 @@
     {
         var zTree;
         var demoframe;
+        var log, className = "dark";
 
-        var setting = {
+        var settings = {
             view: {
                 dblClickExpand: false,
                 showLine: true,
@@ -40,8 +41,25 @@
                 }
             },
             callback: {
-                onClick: onClick
-            }
+                onClick: onClick,
+
+                beforeClick: beforeClick,
+                beforeAsync: beforeAsync,
+                onAsyncError: onAsyncError,
+                onAsyncSuccess: onAsyncSuccess,
+
+                beforeCollapse: beforeCollapse,
+                beforeExpand: beforeExpand,
+                onCollapse: onCollapse,
+                onExpand: onExpand,
+            },
+            async: {
+                enable: true,
+                url:"/schemas/",
+                autoParam:["id", "name=n", "level=lv", "database=dbn"],
+                otherParam:{"otherParam":"zTreeAsyncTest"},
+                dataFilter: filter
+            },
         };
 
         var zNodes = [
@@ -58,17 +76,33 @@
         ];
 
 
-        var setting2 = {
-            async: {
-                enable: true,
-                url:"../asyncData/getNodes.php",
-                autoParam:["id", "name=n", "level=lv"],
-                otherParam:{"otherParam":"zTreeAsyncTest"},
-                dataFilter: filter
-            }
-        };
+        var t = $("#tree");
+        t = $.fn.zTree.init(t, settings, zNodes);
+        demoframe = $("#testframe");
+        demoframe.bind("load", loadReady);
+        
+        zTree = $.fn.zTree.getZTreeObj("tree");
+        zTree.selectNode(zTree.getNodeByParam("id", 101));
 
-        function filter(treeId, parentNode, childNodes) {
+
+
+        
+        var refreshNode = function(event, node)
+        {
+            //type = event.data.type;
+            //silent = event.data.silent;
+            zTree.reAsyncChildNodes(node);
+        }
+
+        var reset = function()
+        {
+            asyncForAll = false;
+            goAsync = false;
+            $.fn.zTree.init($("#tree"), settings);
+        }
+
+        var filter = function(treeId, parentNode, childNodes)
+        {
             if (!childNodes) return null;
             for (var i=0, l=childNodes.length; i<l; i++) {
                 childNodes[i].name = childNodes[i].name.replace(/\.n/g, '.');
@@ -76,13 +110,13 @@
             return childNodes;
         }
 
-        function onClick(event, treeId, treeNode, clickFlag)
+        var onClick = function(event, treeId, treeNode, clickFlag)
         {
             if( treeNode.src )
                 $('#body').attr('src', treeNode.src);
         }       
 
-        function loadReady()
+        var loadReady = function()
         {
             var bodyH = demoframe.contents().find("body").get(0).scrollHeight,
             htmlH = demoframe.contents().find("html").get(0).scrollHeight,
@@ -92,12 +126,58 @@
             demoframe.height(h);
         }
 
-        var t = $("#tree");
-        t = $.fn.zTree.init(t, setting, zNodes);
-        demoframe = $("#testframe");
-        demoframe.bind("load", loadReady);
-        var zTree = $.fn.zTree.getZTreeObj("tree");
-        zTree.selectNode(zTree.getNodeByParam("id", 101));
+        var beforeClick = function(treeId, treeNode)
+        {
+            if (!treeNode.isParent) {
+                alert("Please select one parent node...");
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        var beforeAsync = function(treeId, treeNode)
+        {
+            className = (className === "dark" ? "":"dark");
+            console.log("[ beforeAsync ]&nbsp;&nbsp;&nbsp;&nbsp;" + ((!!treeNode && !!treeNode.name) ? treeNode.name : "root") );
+            return true;
+        }
+        var onAsyncError = function(event, treeId, treeNode, XMLHttpRequest, textStatus, errorThrown)
+        {
+            console.log("[ onAsyncError ]&nbsp;&nbsp;&nbsp;&nbsp;" + ((!!treeNode && !!treeNode.name) ? treeNode.name : "root") );
+        }
+        var onAsyncSuccess = function(event, treeId, treeNode, msg)
+        {
+            console.log("[ onAsyncSuccess ]&nbsp;&nbsp;&nbsp;&nbsp;" + ((!!treeNode && !!treeNode.name) ? treeNode.name : "root") );
+        }
+
+        var beforeCollapse = function(treeId, treeNode)
+        {
+            console.log("[ beforeCollapse ]&nbsp;&nbsp;&nbsp;&nbsp;" + treeNode.name );
+            return (treeNode.collapse !== false);
+        }
+        var onCollapse = function(event, treeId, treeNode)
+        {
+            console.log("[ onCollapse ]&nbsp;&nbsp;&nbsp;&nbsp;" + treeNode.name);
+            refreshNode(event, treeNode);
+        }       
+        var beforeExpand = function(treeId, treeNode)
+        {
+            console.log("[ beforeExpand ]&nbsp;&nbsp;&nbsp;&nbsp;" + treeNode.name );
+            return (treeNode.expand !== false);
+        }
+        var onExpand = function(event, treeId, treeNode)
+        {
+            zTree.reAsyncChildNodes(treeNode);
+            console.log("[ onExpand ]&nbsp;&nbsp;&nbsp;&nbsp;" + treeNode.name);
+        }
+
+
+
+        $("#refreshNode").bind("click", {type:"refresh", silent:false}, refreshNode);
+        $("#refreshNodeSilent").bind("click", {type:"refresh", silent:true}, refreshNode);
+        $("#addNode").bind("click", {type:"add", silent:false}, refreshNode);
+        $("#addNodeSilent").bind("click", {type:"add", silent:true}, refreshNode);
     });
     </script>
 </head>

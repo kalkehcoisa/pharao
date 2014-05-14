@@ -44,10 +44,12 @@ class Postgresql():
     def schemas(self, database=None):
         if database:
             self.connect(dbname=database)
+        
         query = """SELECT pn.nspname, pu.usename AS nspowner, pg_catalog.obj_description(pn.oid, 'pg_namespace') AS nspcomment
                   FROM pg_catalog.pg_namespace pn LEFT JOIN pg_catalog.pg_user pu ON (pn.nspowner = pu.usesysid)
                   WHERE pn.nspname NOT LIKE 'pg@_%%' ESCAPE '@' ORDER BY nspname"""
-        return [p for p in self.connection.execute(query).fetchall()]
+        results = [p for p in self.connection.execute(query).fetchall()]
+        return results
 
     #Postgresql only list the tables of the current database you're connected to
     def tables(self, all=False, database=None, schema=None):

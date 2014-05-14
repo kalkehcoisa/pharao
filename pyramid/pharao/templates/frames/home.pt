@@ -7,7 +7,7 @@
           <div class="col-md-10">
             <div class="content">
               <h1><span class="font-semi-bold">Pyramid</span> <span class="smaller">starter template</span></h1>
-              <p class="lead">Welcome to <span class="font-normal">${project}</span>, an&nbsp;application generated&nbsp;by<br>the <span class="font-normal">Pyramid Web Framework</span>.</p>
+              <p class="lead">Welcome to <span class="font-normal">Pharao</span>, an&nbsp;application generated&nbsp;by<br>the <span class="font-normal">Pyramid Web Framework</span>.</p>
             </div>
           </div>
         </div>
