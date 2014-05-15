@@ -10,11 +10,10 @@ class Postgresql():
     db_user = 'pharao'
     db_pass = '1234'
     db_host = 'localhost'
+    db_port = '5432'
 
     def __init__(self, *args, **kw):
-        self.engine = sqlalchemy.create_engine('postgresql://%s:%s@%s/%s' % 
-                        (self.db_user, self.db_pass, self.db_host, self.db_name))
-        self.connection = self.engine.connect()
+        self.connect()
 
     def close(self):
         if self.engine:
@@ -22,16 +21,17 @@ class Postgresql():
         if self.connection:
             self.connection.close()
 
-    def connect(self, user=None, passwd=None, host=None, dbname=None):
+    def connect(self, user=None, passwd=None, host=None, port=None, dbname=None):
         self.close()
 
         self.db_user = user or self.db_user
         self.db_pass = passwd or self.db_pass
         self.db_host = host or self.db_host
         self.db_name = dbname or self.db_name
+        self.db_port = port or self.db_port
 
-        self.engine = sqlalchemy.create_engine('postgresql://%s:%s@%s/%s' % 
-                        (self.db_user, self.db_pass, self.db_host, self.db_name))
+        self.engine = sqlalchemy.create_engine('postgresql://%s:%s@%s:%s/%s' % 
+                        (self.db_user, self.db_pass, self.db_host, self.db_port, self.db_name))
         self.connection = self.engine.connect()
 
 

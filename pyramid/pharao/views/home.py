@@ -1,14 +1,16 @@
 #-*- coding: utf-8 -*-
 
 from pyramid.view import view_config
-from ..backends import Postgresql
+from .. import backends
 
 
 @view_config(context="..resources.Resource",
 			 renderer='pharao:templates/base.pt')
 def home(request):
-    pgdbs = [p[0] for p in Postgresql.databases()]
-    return {'mysqldbs': [], 'pgdbs': pgdbs}
+    #for sgdb in backends.Servers.sgdbs():
+    sgdbs = backends.Servers.sgdbs('Postgresql')
+    #	sgdbs[(db_name+): [p[0] for p in sgbd.databases()]}
+    return {'mysqldbs': [], 'sgdbs': sgdbs}
 
 @view_config(name='left_menu', 
 			 context="..resources.Resource",

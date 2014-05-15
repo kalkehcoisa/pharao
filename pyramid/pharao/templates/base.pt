@@ -16,58 +16,20 @@
     <!-- Custom styles for this template -->
     <link href="${request.static_url('pharao:static/css/styles.css')}" rel="stylesheet">
 
-    <link rel="stylesheet" href="${request.static_url('pharao:static/css/zTreeStyle.css')}" type="text/css">
+    <link rel="stylesheet" href="${request.static_url('pharao:static/jstree/themes/default/style.min.css')}" type="text/css">
     <script type="text/javascript" src="${request.static_url('pharao:static/js/jquery.min.js')}"></script>
-    <script type="text/javascript" src="${request.static_url('pharao:static/js/jquery.ztree.core-3.5.js')}"></script>
+    <script type="text/javascript" src="${request.static_url('pharao:static/jstree/jstree.min.js')}"></script>
     <script type="text/javascript">
     $(document).ready(function()
     {
-        var zTree;
-        var demoframe;
-        var log, className = "dark";
 
-        var settings = {
-            view: {
-                dblClickExpand: false,
-                showLine: true,
-                selectedMulti: false
-            },
-            data: {
-                simpleData: {
-                    enable:true,
-                    idKey: "id",
-                    pIdKey: "pid",
-                    rootPId: ""
-                }
-            },
-            callback: {
-                onClick: onClick,
-
-                beforeClick: beforeClick,
-                beforeAsync: beforeAsync,
-                onAsyncError: onAsyncError,
-                onAsyncSuccess: onAsyncSuccess,
-
-                beforeCollapse: beforeCollapse,
-                beforeExpand: beforeExpand,
-                onCollapse: onCollapse,
-                onExpand: onExpand,
-            },
-            async: {
-                enable: true,
-                url:"/schemas/",
-                autoParam:["id", "name=n", "level=lv", "database=dbn"],
-                otherParam:{"otherParam":"zTreeAsyncTest"},
-                dataFilter: filter
-            },
-        };
 
         var zNodes = [
-            {id:1, pid:0, name:"Servers", open:false, icon:"${request.static_url('pharao:static/images/server-16.png')}",},
+            {id:1, pid:0, name:"Servers", open:false, icon:"",},
                 {id:100, pid:1, name:"Home", src:"/", click: true},
 
                 {id:101, pid:1, name:"PostgreSQL", isParent:true, open:false, icon:"${request.static_url('pharao:static/images/db-16.png')}",},
-                <li tal:omit-tag="" tal:repeat="db pgdbs">
+                <li tal:omit-tag="" tal:repeat="db sgdbs">
                 {id:10000, pid:101, name:"${db}", isParent:true, open:false}, </li>
 
                 {id:102, pid:1, name:"MySQL", isParent:true, open:false, icon:"${request.static_url('pharao:static/images/db-16.png')}",},
@@ -75,109 +37,62 @@
                 {id:20000, pid:102, name:"${db}", isParent:true, open:false}, </li>
         ];
 
+        $('#treemenu').jstree({
+            'core' : {
+                
+                "check_callback" : true,
 
-        var t = $("#tree");
-        t = $.fn.zTree.init(t, settings, zNodes);
-        demoframe = $("#testframe");
-        demoframe.bind("load", loadReady);
-        
-        zTree = $.fn.zTree.getZTreeObj("tree");
-        zTree.selectNode(zTree.getNodeByParam("id", 101));
+                'data' : [{
+                     'text' : 'Servers',
+                     'type': 'root',
+                     'state' : {
+                       'opened' : true,
+                       'selected' : true
+                     },
+                     'children' : [{
+                            'text' : 'PostgreSQL',
+                            'type' : 'sgbd',
+                            'children' : true,
+                       },
+                       {
+                            'text' : 'MySQL',
+                            'type' : 'sgbd',
+                            'children' : true,
+                       },
+                     ]
+                }],
+
+            },
 
 
+            "types" : {
+                "root" : {
+                  "icon" : "${request.static_url('pharao:static/images/server-16.png')}",
+                  "valid_children" : ["sgbd"]
+                },
+                "sgbd" : {
+                  "icon" : "${request.static_url('pharao:static/images/db-16.png')}",
+                  "valid_children" : ["database",]
+                },
+                "database" : {
+                  "icon" : "${request.static_url('pharao:static/images/db-16.png')}",
+                  "valid_children" : []
+                }
+            },
 
-        
-        var refreshNode = function(event, node)
+            "plugins" : ["types"],
+
+        })
+        .on('open_node.jstree', function (e, data)
         {
-            //type = event.data.type;
-            //silent = event.data.silent;
-            zTree.reAsyncChildNodes(node);
-        }
-
-        var reset = function()
+            alert(data.node.text);
+        })
+        .on('create_node.jstree', function (e, data)
         {
-            asyncForAll = false;
-            goAsync = false;
-            $.fn.zTree.init($("#tree"), settings);
-        }
-
-        var filter = function(treeId, parentNode, childNodes)
-        {
-            if (!childNodes) return null;
-            for (var i=0, l=childNodes.length; i<l; i++) {
-                childNodes[i].name = childNodes[i].name.replace(/\.n/g, '.');
-            }
-            return childNodes;
-        }
-
-        var onClick = function(event, treeId, treeNode, clickFlag)
-        {
-            if( treeNode.src )
-                $('#body').attr('src', treeNode.src);
-        }       
-
-        var loadReady = function()
-        {
-            var bodyH = demoframe.contents().find("body").get(0).scrollHeight,
-            htmlH = demoframe.contents().find("html").get(0).scrollHeight,
-            maxH = Math.max(bodyH, htmlH), minH = Math.min(bodyH, htmlH),
-            h = demoframe.height() >= maxH ? minH:maxH ;
-            if (h < 530) h = 530;
-            demoframe.height(h);
-        }
-
-        var beforeClick = function(treeId, treeNode)
-        {
-            if (!treeNode.isParent) {
-                alert("Please select one parent node...");
-                return false;
-            } else {
-                return true;
-            }
-        }
-
-        var beforeAsync = function(treeId, treeNode)
-        {
-            className = (className === "dark" ? "":"dark");
-            console.log("[ beforeAsync ]&nbsp;&nbsp;&nbsp;&nbsp;" + ((!!treeNode && !!treeNode.name) ? treeNode.name : "root") );
-            return true;
-        }
-        var onAsyncError = function(event, treeId, treeNode, XMLHttpRequest, textStatus, errorThrown)
-        {
-            console.log("[ onAsyncError ]&nbsp;&nbsp;&nbsp;&nbsp;" + ((!!treeNode && !!treeNode.name) ? treeNode.name : "root") );
-        }
-        var onAsyncSuccess = function(event, treeId, treeNode, msg)
-        {
-            console.log("[ onAsyncSuccess ]&nbsp;&nbsp;&nbsp;&nbsp;" + ((!!treeNode && !!treeNode.name) ? treeNode.name : "root") );
-        }
-
-        var beforeCollapse = function(treeId, treeNode)
-        {
-            console.log("[ beforeCollapse ]&nbsp;&nbsp;&nbsp;&nbsp;" + treeNode.name );
-            return (treeNode.collapse !== false);
-        }
-        var onCollapse = function(event, treeId, treeNode)
-        {
-            console.log("[ onCollapse ]&nbsp;&nbsp;&nbsp;&nbsp;" + treeNode.name);
-            refreshNode(event, treeNode);
-        }       
-        var beforeExpand = function(treeId, treeNode)
-        {
-            console.log("[ beforeExpand ]&nbsp;&nbsp;&nbsp;&nbsp;" + treeNode.name );
-            return (treeNode.expand !== false);
-        }
-        var onExpand = function(event, treeId, treeNode)
-        {
-            zTree.reAsyncChildNodes(treeNode);
-            console.log("[ onExpand ]&nbsp;&nbsp;&nbsp;&nbsp;" + treeNode.name);
-        }
+            alert(data.node.text);
+        })
 
 
-
-        $("#refreshNode").bind("click", {type:"refresh", silent:false}, refreshNode);
-        $("#refreshNodeSilent").bind("click", {type:"refresh", silent:true}, refreshNode);
-        $("#addNode").bind("click", {type:"add", silent:false}, refreshNode);
-        $("#addNodeSilent").bind("click", {type:"add", silent:true}, refreshNode);
     });
     </script>
 </head>
@@ -186,9 +101,7 @@
 
 <body style="height: 100%;">
     <div class="main-menu">
-        <div id='testframe'>
-            <ul id="tree" class="ztree"></ul>
-        </div>
+        <div id="treemenu"></div>
     </div>
 
     <div>

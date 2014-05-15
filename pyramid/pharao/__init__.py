@@ -105,13 +105,15 @@ def main(global_config, **settings):
 from pyramid.config import Configurator
 
 import sqlalchemy
-from .backends import *
 from .resources import get_root
+from . import backends
 
 def main(global_config, **settings):
     """ This function returns a Pyramid WSGI application.
     """
-    
+
+    backends.Servers = backends.ServerList(settings['sqlalchemy.urls'])
+
     #MySession.configure(bind=mysql_engine)
     #MyBase.metadata.bind = mysql_engine
     #Base.metadata.create_all(engine)

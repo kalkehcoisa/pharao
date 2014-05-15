@@ -3,7 +3,7 @@ pharao
 
 Possible Pyramid version of phpmyadmin/phppgadmin.
 
-Left menu made using http://www.ztree.me/v3/
+Left menu made using http://www.jstree.com
 
 
 Doing right now:
