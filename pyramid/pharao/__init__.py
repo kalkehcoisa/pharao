@@ -103,10 +103,18 @@ def main(global_config, **settings):
 
 
 from pyramid.config import Configurator
+from pyramid.request import Request
+from pyramid.session import SignedCookieSessionFactory
 
 import sqlalchemy
 from .resources import get_root
 from . import backends
+
+
+
+class CustomRequest(Request):
+    pass
+
 
 def main(global_config, **settings):
     """ This function returns a Pyramid WSGI application.
@@ -121,8 +129,13 @@ def main(global_config, **settings):
     #e("show tables").fetchall()
 
     config = Configurator(settings=settings)
-    config.include('pyramid_chameleon')
     config.set_root_factory(get_root)
+    my_session_factory = SignedCookieSessionFactory('itsaseekreet')
+    config.set_session_factory(my_session_factory)
+    config.set_request_factory(CustomRequest)
+
+
+    config.include('pyramid_chameleon')
 
     config.add_static_view('static', 'static', cache_max_age=3600)
     #config.add_route('home', '/')

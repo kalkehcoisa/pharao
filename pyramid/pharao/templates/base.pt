@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="pyramid web application">
     <meta name="author" content="Pharao Project">
-    <link rel="shortcut icon" href="${request.static_url('pharao:static/images/pyramid-16x16.png')}">
+    <link rel="shortcut icon" href="${request.static_url('pharao:static/images/snake-32.png')}">
+
 
     <title>Pharao</title>
 
@@ -22,74 +23,98 @@
     <script type="text/javascript">
     $(document).ready(function()
     {
-
-
-        var zNodes = [
-            {id:1, pid:0, name:"Servers", open:false, icon:"",},
-                {id:100, pid:1, name:"Home", src:"/", click: true},
-
-                {id:101, pid:1, name:"PostgreSQL", isParent:true, open:false, icon:"${request.static_url('pharao:static/images/db-16.png')}",},
-                <li tal:omit-tag="" tal:repeat="db sgdbs">
-                {id:10000, pid:101, name:"${db}", isParent:true, open:false}, </li>
-
-                {id:102, pid:1, name:"MySQL", isParent:true, open:false, icon:"${request.static_url('pharao:static/images/db-16.png')}",},
-                <li tal:omit-tag="" tal:repeat="db mysqldbs">
-                {id:20000, pid:102, name:"${db}", isParent:true, open:false}, </li>
-        ];
+        var empty_children = [{'text': 'Loading...', 'type' : 'loader'},];
 
         $('#treemenu').jstree({
             'core' : {
-                
+                "animation" : 200,
                 "check_callback" : true,
 
                 'data' : [{
-                     'text' : 'Servers',
-                     'type': 'root',
-                     'state' : {
-                       'opened' : true,
-                       'selected' : true
-                     },
-                     'children' : [{
-                            'text' : 'PostgreSQL',
-                            'type' : 'sgbd',
-                            'children' : true,
-                       },
-                       {
-                            'text' : 'MySQL',
-                            'type' : 'sgbd',
-                            'children' : true,
-                       },
-                     ]
-                }],
-
+                        'text' : 'PostgreSQL',
+                        'type' : 'pgsql',
+                        'children' : empty_children,
+                   },
+                   {
+                        'text' : 'MySQL',
+                        'type' : 'mysql',
+                        'children' : empty_children,
+                   }],
             },
 
-
             "types" : {
-                "root" : {
-                  "icon" : "${request.static_url('pharao:static/images/server-16.png')}",
-                  "valid_children" : ["sgbd"]
-                },
-                "sgbd" : {
-                  "icon" : "${request.static_url('pharao:static/images/db-16.png')}",
-                  "valid_children" : ["database",]
-                },
-                "database" : {
-                  "icon" : "${request.static_url('pharao:static/images/db-16.png')}",
+                "loader" : {
+                  "icon" : "${request.static_url('pharao:static/images/throbber.gif')}",
                   "valid_children" : []
+                },
+                "pgsql" : {
+                  "icon" : "${request.static_url('pharao:static/images/pg-16.png')}",
+                  "valid_children" : ["server","loader"]
+                },
+                "mysql" : {
+                  "icon" : "${request.static_url('pharao:static/images/mysql-16.png')}",
+                  "valid_children" : ["server","loader"]
+                },
+                "server" : {
+                  "icon" : "${request.static_url('pharao:static/images/server-16.png')}",
+                  "valid_children" : ["database","loader"]
                 }
             },
 
             "plugins" : ["types"],
 
         })
-        .on('open_node.jstree', function (e, data)
+        .bind('select_node.jstree', function (e, data)
         {
-            alert(data.node.text);
+            console.log('Select '+data.node.text+' '+data.node.type);
         })
-        .on('create_node.jstree', function (e, data)
+        .bind('open_node.jstree', function (e, data)
         {
-            alert(data.node.text);
+            if( data.node.type == 'pgsql' || data.node.type == 'mysql' )
+            {
+                $('#treemenu').jstree("delete_node", data.node.children);
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/servers/',
+                    data: {type: data.node.type},
+                })
+                .done(function(dados)
+                {
+                    for(var i=0;i<dados.length;i++)
+                    {
+                        var newNode = { 'text': dados[i], 'type': 'server', 'children': empty_children };
+                        $('#treemenu').jstree("create_node", data.node, newNode, 'last', function(){});
+                    }
+                })
+                .fail(function(){alert("error");})
+                .always(function(){});
+            }
+            else
+                if(data.node.type=='server')
+                {
+                    var parent = $('#treemenu').jstree("get_node", data.node.parent);
+                    console.log('Parent '+parent.type+' '+data.node.text);
+
+                    $.ajax({
+                        type: 'POST',
+                        url: '/databases/',
+                        data: {name: data.node.text,
+                               type: parent.type},
+                    })
+                    .done(function(dados)
+                    {
+                        $('#treemenu').jstree("delete_node", data.node.children);
+                        for(var i=0;i<dados.length;i++)
+                        {
+                            var newNode = { 'text': dados[i], 'type': 'database', 'children': empty_children };
+                            $('#treemenu').jstree("create_node", data.node, newNode, 'last', function()
+                            { console.log('Complete'); });
+                        }
+                    })
+                    .fail(function(){alert( "error" );})
+                    .always(function(){});
+                }
         })
 
 

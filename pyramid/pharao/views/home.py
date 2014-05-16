@@ -7,6 +7,7 @@ from .. import backends
 @view_config(context="..resources.Resource",
 			 renderer='pharao:templates/base.pt')
 def home(request):
+    request.session['aaa'] = 0
     #for sgdb in backends.Servers.sgdbs():
     sgdbs = backends.Servers.sgdbs('Postgresql')
     #	sgdbs[(db_name+): [p[0] for p in sgbd.databases()]}
