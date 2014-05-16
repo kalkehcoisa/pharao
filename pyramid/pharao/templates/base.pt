@@ -25,6 +25,51 @@
     {
         var empty_children = [{'text': 'Loading...', 'type' : 'loader'},];
 
+
+        var getServers = function(tree, data)
+        {
+            tree.jstree("delete_node", data.node.children);
+
+            $.ajax({
+                type: 'POST',
+                url: '/servers/',
+                data: {type: data.node.type},
+            })
+            .done(function(dados)
+            {
+                for(var i=0;i<dados.length;i++)
+                {
+                    var newNode = { 'text': dados[i], 'type': 'server', 'children': empty_children };
+                    tree.jstree("create_node", data.node, newNode, 'last', function(){});
+                }
+            })
+            .fail(function(){alert("error");})
+            .always(function(){});
+        }
+        var getDatabases = function(tree, data)
+        {
+            var parent = tree.jstree("get_node", data.node.parent);
+
+            $.ajax({
+                type: 'POST',
+                url: '/databases/',
+                data: {name: data.node.text,
+                       type: parent.type},
+            })
+            .done(function(dados)
+            {
+                tree.jstree("delete_node", data.node.children);
+                for(var i=0;i<dados.length;i++)
+                {
+                    var newNode = { 'text': dados[i], 'type': 'database', 'children': empty_children };
+                    tree.jstree("create_node", data.node, newNode, 'last', function(){});
+                }
+            })
+            .fail(function(){alert( "error" );})
+            .always(function(){});
+        }
+
+
         $('#treemenu').jstree({
             'core' : {
                 "animation" : 200,
@@ -58,6 +103,10 @@
                 "server" : {
                   "icon" : "${request.static_url('pharao:static/images/server-16.png')}",
                   "valid_children" : ["database","loader"]
+                },
+                "database" : {
+                  "icon" : "${request.static_url('pharao:static/images/db-16.png')}",
+                  "valid_children" : ["table","schema","loader"]
                 }
             },
 
@@ -72,48 +121,12 @@
         {
             if( data.node.type == 'pgsql' || data.node.type == 'mysql' )
             {
-                $('#treemenu').jstree("delete_node", data.node.children);
-
-                $.ajax({
-                    type: 'POST',
-                    url: '/servers/',
-                    data: {type: data.node.type},
-                })
-                .done(function(dados)
-                {
-                    for(var i=0;i<dados.length;i++)
-                    {
-                        var newNode = { 'text': dados[i], 'type': 'server', 'children': empty_children };
-                        $('#treemenu').jstree("create_node", data.node, newNode, 'last', function(){});
-                    }
-                })
-                .fail(function(){alert("error");})
-                .always(function(){});
+                getServers($('#treemenu'), data);
             }
             else
                 if(data.node.type=='server')
                 {
-                    var parent = $('#treemenu').jstree("get_node", data.node.parent);
-                    console.log('Parent '+parent.type+' '+data.node.text);
-
-                    $.ajax({
-                        type: 'POST',
-                        url: '/databases/',
-                        data: {name: data.node.text,
-                               type: parent.type},
-                    })
-                    .done(function(dados)
-                    {
-                        $('#treemenu').jstree("delete_node", data.node.children);
-                        for(var i=0;i<dados.length;i++)
-                        {
-                            var newNode = { 'text': dados[i], 'type': 'database', 'children': empty_children };
-                            $('#treemenu').jstree("create_node", data.node, newNode, 'last', function()
-                            { console.log('Complete'); });
-                        }
-                    })
-                    .fail(function(){alert( "error" );})
-                    .always(function(){});
+                    getDatabases($('#treemenu'), data);
                 }
         })
 
